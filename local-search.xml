@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>about</title>
+      <link href="undefined2019/09/07/about-1/"/>
+      <url>2019/09/07/about-1/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>about</title>
+      <link href="undefined2019/09/07/about/"/>
+      <url>2019/09/07/about/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>测试2</title>
       <link href="undefined2019/09/06/%E6%B5%8B%E8%AF%952/"/>
       <url>2019/09/06/%E6%B5%8B%E8%AF%952/</url>
@@ -25,6 +51,14 @@
       
       
       
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+            <tag> 测试 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -34,7 +68,7 @@
       <link href="undefined2019/09/05/%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C/"/>
       <url>2019/09/05/%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C/</url>
       
-        <content type="html"><![CDATA[<p>你好啊，第一次使用该框架</p>]]></content>
+        <content type="html"><![CDATA[<p>你好啊，第一次使用该框架’<br>wtffff</p>]]></content>
       
       
       

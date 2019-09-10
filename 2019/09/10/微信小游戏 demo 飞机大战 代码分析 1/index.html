@@ -453,24 +453,29 @@ this.music    = new Music()</code></pre>
         
             <br><br>
             
-            <div class="disqus" style="width:100%">
-    <div id="disqus_thread"></div>
-    <script>               
-        var disqus_shortname = '';
-        var disqus_config = function () {
-            this.page.url = 'http://yoursite.com/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/'; 
-            this.page.identifier = '/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/';
-        };
-        (function() { 
-            var d = document, s = d.createElement('script');
-            s.type = 'text/javascript';
-            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
+            
+    <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+    <script type="text/javascript">
+        var gitalk = new Gitalk({
+            clientID: '09e797dc35458be250b9',
+            clientSecret: '8303afd51d6bf1a330a4806dcf20a9fd9f1e6f6e',
+            repo: 'comments',
+            owner: 'Phoenix-Xie',
+            admin: '',
+            id: md5(location.pathname),
+            language: 'zh-CN',
+            perPage: '15',
+            pagerDirection: 'last',
+            createIssueManually: 'true',
+            distractionFreeMode: 'false'
+        })
+
+        gitalk.render('gitalk-container')
     </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
-</div>	    
+	    
         
     </div>
 </div>

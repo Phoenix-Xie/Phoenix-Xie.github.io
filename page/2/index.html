@@ -107,20 +107,22 @@
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/centos下nginx的部署配置/">
-                <p class="h4 index-header">centos下nginx的部署配置</p>
+            <a href="/2019/09/05/Linux 命令行学习/">
+                <p class="h4 index-header">Linux 命令行学习</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">centos下nginx的部署配置服务设置
-service nginx restart
-git 账户密码如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。
-解决办法：
-git bash进入你的项目目录，输入：
-git config –global credential.helper store
-然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。
-然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。
-linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
-2 &gt; &amp; 1指将错误输出输入到标准输出中
+                        <div class="index-text mb-1">Linux 命令行学习
+ps -ef
+curl [网址] 显示html内容
+
+环境变量例子， 修改java环境变量vim ~/.bashrc
+在文件末尾加：
+export JAVA_HOME=/home/java/jdk1.8.0_201
+
+export CLASSPATH=${JAVA_HOME}/lib
+
+export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
+source ~/.bashrc
 </div>
                     
                 </div>
@@ -134,61 +136,7 @@ linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%20centos">服务器 centos</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/解压错误/">
-                <p class="h4 index-header">解压错误</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">解压错误
-gzip: stdin: not in gzip format  　　
-
-
-tar: Child returned status 1  
-
-
-tar: Error is not recoverable: exiting now
-
-
-在解压时出现了这样的错误，为了知道为什么会发生这样的错误，笔者在网上查阅了相关资料，根据了解大概确定了问题应该是安装包出现了问题
-下载这个安装包用的这个命令
-
-使用
-ls -lht 
-命令查看内容
-发现安装包只有5.2k
-使用linux file命令查询
-
-发现竟然是html页面
-这是因为原先使用的下载链接指向的是一个html页面，而浏览器解析后会得到一个下载链接，应该获取这个下载链接才可以正常使用wget去下载
-因此重新下载后成功
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/linux%20%E8%A7%A3%E5%8E%8B%20tar">linux 解压 tar</a>&nbsp;
+                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
                         
                     
                 </div>
@@ -253,89 +201,6 @@ void add(int x, int y, int z, int f){
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Django 2.1 学习笔记/">
-                <p class="h4 index-header">Django 2.1 学习笔记</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
-templates都默认在templates文件夹下
-如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
-
-HTTP 模块HttpResponseRedirect
-设原网址为  127.0.0.1/user/Lab
-如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
-如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/django">django</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Linux 命令行学习/">
-                <p class="h4 index-header">Linux 命令行学习</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Linux 命令行学习
-ps -ef
-curl [网址] 显示html内容
-
-环境变量例子， 修改java环境变量vim ~/.bashrc
-在文件末尾加：
-export JAVA_HOME=/home/java/jdk1.8.0_201
-
-export CLASSPATH=${JAVA_HOME}/lib
-
-export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
-source ~/.bashrc
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/05/调整 jupyter notebook 的默认路径/">
                 <p class="h4 index-header">调整jupyter notebook的默认路径</p>
                 <div class="index-excerpt">
@@ -363,6 +228,114 @@ source ~/.bashrc
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/jupyter%20python">jupyter python</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/数值分析 --- 基础知识/">
+                <p class="h4 index-header">数值分析--基础知识</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">数值分析 — 基础知识有效位数缺失
+对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况
+若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+
+如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$
+
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90">数值分析</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/Mevan 使用体验/">
+                <p class="h4 index-header">Mevan 使用体验</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Mevan 使用体验install在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/Mevan">Mevan</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/LeetCode-环形链表II/">
+                <p class="h4 index-header">LeetCode-环形链表II</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">LeetCode-环形链表II
+为找到入口点可以用以下方法
+
+使用快慢指针法直到两个指针相遇
+头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
+
+设 起点为A ，入口点为B，快慢指针相遇点为C
+AB = n, BC = k，环长为m
+因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
                         
                     
                 </div>
@@ -418,42 +391,6 @@ source ~/.bashrc
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/数值分析 --- 基础知识/">
-                <p class="h4 index-header">数值分析--基础知识</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">数值分析 — 基础知识有效位数缺失
-对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况
-若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+
-如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90">数值分析</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/05/查看python位数/">
                 <p class="h4 index-header">Linux 下各种神奇命令</p>
                 <div class="index-excerpt">
@@ -474,6 +411,60 @@ platform.architecture()
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/linux">linux</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/解压错误/">
+                <p class="h4 index-header">解压错误</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">解压错误
+gzip: stdin: not in gzip format  　　
+
+
+tar: Child returned status 1  
+
+
+tar: Error is not recoverable: exiting now
+
+
+在解压时出现了这样的错误，为了知道为什么会发生这样的错误，笔者在网上查阅了相关资料，根据了解大概确定了问题应该是安装包出现了问题
+下载这个安装包用的这个命令
+
+使用
+ls -lht 
+命令查看内容
+发现安装包只有5.2k
+使用linux file命令查询
+
+发现竟然是html页面
+这是因为原先使用的下载链接指向的是一个html页面，而浏览器解析后会得到一个下载链接，应该获取这个下载链接才可以正常使用wget去下载
+因此重新下载后成功
+
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/linux%20%E8%A7%A3%E5%8E%8B%20tar">linux 解压 tar</a>&nbsp;
                         
                     
                 </div>

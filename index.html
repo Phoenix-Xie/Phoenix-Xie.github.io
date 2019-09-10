@@ -107,12 +107,12 @@
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 3(spirit.js, animation.js)/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
+微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
 微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
@@ -120,21 +120,15 @@
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-databus.js代码：
-import Pool from &#39;./base/pool&#39;
-
-let instance
-
+spirit.js游戏基础的精灵类
+代码
 /**
- * 全局状态管理器
+ * 游戏基础的精灵类
  */
-export default class DataBus {
-  constructor() {
-    if ( instance )
-      return instance
-
-    instance = this
-</div>
+export default class Sprite {
+  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {
+    this.img     = new Image()
+    this.img.src = imgS</div>
                     
                 </div>
             </a>
@@ -255,12 +249,12 @@ import BackGround from </div>
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 3(spirit.js, animation.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
+微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
 微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
@@ -268,15 +262,21 @@ import BackGround from </div>
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-spirit.js游戏基础的精灵类
-代码
+databus.js代码：
+import Pool from &#39;./base/pool&#39;
+
+let instance
+
 /**
- * 游戏基础的精灵类
+ * 全局状态管理器
  */
-export default class Sprite {
-  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {
-    this.img     = new Image()
-    this.img.src = imgS</div>
+export default class DataBus {
+  constructor() {
+    if ( instance )
+      return instance
+
+    instance = this
+</div>
                     
                 </div>
             </a>
@@ -418,19 +418,19 @@ catchtap可以中断冒泡事件
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/LeetCode-环形链表II/">
-                <p class="h4 index-header">LeetCode-环形链表II</p>
+            <a href="/2019/09/05/Django 2.1 学习笔记/">
+                <p class="h4 index-header">Django 2.1 学习笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">LeetCode-环形链表II
-为找到入口点可以用以下方法
+                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
+templates都默认在templates文件夹下
+如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
 
-使用快慢指针法直到两个指针相遇
-头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
+HTTP 模块HttpResponseRedirect
+设原网址为  127.0.0.1/user/Lab
+如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
+如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
 
-设 起点为A ，入口点为B，快慢指针相遇点为C
-AB = n, BC = k，环长为m
-因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
 </div>
                     
                 </div>
@@ -444,39 +444,7 @@ AB = n, BC = k，环长为m
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Mevan 使用体验/">
-                <p class="h4 index-header">Mevan 使用体验</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Mevan 使用体验install在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/Mevan">Mevan</a>&nbsp;
+                            <a href="/tags/django">django</a>&nbsp;
                         
                     
                 </div>
@@ -517,6 +485,47 @@ error=38 : no CUDA-capable device is detected
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/centos下nginx的部署配置/">
+                <p class="h4 index-header">centos下nginx的部署配置</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">centos下nginx的部署配置服务设置
+service nginx restart
+git 账户密码如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。
+解决办法：
+git bash进入你的项目目录，输入：
+git config –global credential.helper store
+然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。
+然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。
+linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
+2 &gt; &amp; 1指将错误输出输入到标准输出中
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%20centos">服务器 centos</a>&nbsp;
                         
                     
                 </div>

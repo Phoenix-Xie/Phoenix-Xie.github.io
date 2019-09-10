@@ -303,19 +303,19 @@ export default class DataBus {
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/LeetCode-环形链表II/">
-                <p class="h4 index-header">LeetCode-环形链表II</p>
+            <a href="/2019/09/05/Django 2.1 学习笔记/">
+                <p class="h4 index-header">Django 2.1 学习笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">LeetCode-环形链表II
-为找到入口点可以用以下方法
+                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
+templates都默认在templates文件夹下
+如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
 
-使用快慢指针法直到两个指针相遇
-头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
+HTTP 模块HttpResponseRedirect
+设原网址为  127.0.0.1/user/Lab
+如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
+如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
 
-设 起点为A ，入口点为B，快慢指针相遇点为C
-AB = n, BC = k，环长为m
-因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
 </div>
                     
                 </div>
@@ -329,7 +329,7 @@ AB = n, BC = k，环长为m
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
+                            <a href="/tags/django">django</a>&nbsp;
                         
                     
                 </div>
@@ -343,31 +343,43 @@ AB = n, BC = k，环长为m
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/# 网络流学习笔记/">
-                <p class="h4 index-header">网络流学习笔记</p>
+            <a href="/2019/09/05/Docker 入坑教程笔记/">
+                <p class="h4 index-header">Docker 入坑教程笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">网络流学习笔记第一天： 实现最基础网络流算法基本思路代码实现#include &lt;iostream&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-#include &lt;memory.h&gt; 
-using namespace std;
-const int MAXN = 100;
-const int MAXM = MAXN*MAXN;
-const int INF = 0x3f3f3f3f;
-int head[MAXN], Next[MAXM], ver[MAXM], edge[MAXM], flow[MAXM];
-int tot;
+                        <div class="index-text mb-1">Docker 入坑教程笔记
+视频网址B站：点这里
 
-void init(){
-    tot = 0;
-    memset(head, 0, sizeof(head));
-}
-void add(int x, int y, int z, int f){
-    Next[++tot] = head[x];
-    head[x] = tot;
-    ver[tot] = y;
-    edge[tot] = z;
-    flow[to</div>
+
+查询命令 man
+
+docker 简单启动和退出
+docker run --name [容器名] -i -t ubuntu  /bin/bash  交互启动虚拟机
+-t 提供伪tty终端
+docker ps [-a][-l]
+docker inspect [container name or id] 配置信息，有用数据
+docker start [-i] 重新启动停止容器
+exit 退出
+
+docker 守护式进程启动启
+ctrl + P ctrl + Q  交互式运行
+ps 不加a可以看到正在运行的容器
+
+
+
+docker 查看情况
+docker run -d 启动一个守护式容器
+
+docker logs [容器名] -tf  t是显示实践 f是显示日志 –tail 选取一定最后数量日志
+
+docker top [容器名] 查看容器中的进程数量
+
+docker exec [-d] [-i] [-t] 容器名 [COMMAND]     启动一个容器进程
+
+
+停止守护式容器
+docker stop 发出停止信号
+docker kil</div>
                     
                 </div>
             </a>
@@ -380,7 +392,47 @@ void add(int x, int y, int z, int f){
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
+                            <a href="/tags/docker%20%E6%9C%8D%E5%8A%A1%E5%99%A8">docker 服务器</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/Ubuntu下深度学习环境坑点记录/">
+                <p class="h4 index-header">Ubuntu下深度学习环境坑点记录</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Ubuntu下深度学习环境坑点记录环境配置参照博客
+出现的错误无法找到CUDA
+error=38 : no CUDA-capable device is detected
+
+
+若保证你的机器上有CUDA
+那么一定是你选择的GPU错误
+机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行
+
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
                         
                     
                 </div>
@@ -426,23 +478,12 @@ void add(int x, int y, int z, int f){
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Linux 命令行学习/">
-                <p class="h4 index-header">Linux 命令行学习</p>
+            <a href="/2019/09/05/python3 与python2 下virtualenv 的使用/">
+                <p class="h4 index-header">python3 与 python2下virtualenv的使用</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Linux 命令行学习
-ps -ef
-curl [网址] 显示html内容
-
-环境变量例子， 修改java环境变量vim ~/.bashrc
-在文件末尾加：
-export JAVA_HOME=/home/java/jdk1.8.0_201
-
-export CLASSPATH=${JAVA_HOME}/lib
-
-export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
-source ~/.bashrc
-</div>
+                        <div class="index-text mb-1">python3 与python2 下virtualenv 的使用当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为
+virtualenv -p python3 env</div>
                     
                 </div>
             </a>
@@ -455,47 +496,7 @@ source ~/.bashrc
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Ubuntu下深度学习环境坑点记录/">
-                <p class="h4 index-header">Ubuntu下深度学习环境坑点记录</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Ubuntu下深度学习环境坑点记录环境配置参照博客
-出现的错误无法找到CUDA
-error=38 : no CUDA-capable device is detected
-
-
-若保证你的机器上有CUDA
-那么一定是你选择的GPU错误
-机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
+                            <a href="/tags/python3">python3</a>&nbsp;
                         
                     
                 </div>

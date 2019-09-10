@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好">
+    <meta name="author" content="Phoenix">
+    <meta name="keywords" content>
+    <title>微信小游戏 demo 飞机大战 代码分析（一）(main.js) ~ Phoenix&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Phoenix&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期二, 九月 10日 2019, 8:22 早上</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <h1 id="微信小游戏-demo-飞机大战-代码分析（一）-main-js"><a href="#微信小游戏-demo-飞机大战-代码分析（一）-main-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（一）(main.js)"></a>微信小游戏 demo 飞机大战 代码分析（一）(main.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</a></p>
+<p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951804.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</a></p>
+<p><a href="https://www.cnblogs.com/Phoenix-blog/p/10955093.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</a></p>
+<blockquote>
+<p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p>
+</blockquote>
+<blockquote>
+<p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p>
+</blockquote>
+<h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><p><img src="https://img2018.cnblogs.com/blog/1255423/201905/1255423-20190530113119007-2004372218.png" alt></p>
+<h2 id="game-js"><a href="#game-js" class="headerlink" title="game.js"></a>game.js</h2><ul>
+<li><p>首先让我们来看一下作为入口的game.js，可以看到在这里只进行了main类的初始化，因此下一步我们应该查看一下main类中的函数</p>
+</li>
+<li><p>代码</p>
+<pre><code class="js">import Player     from &#39;./player/index&#39;
+import Enemy      from &#39;./npc/enemy&#39;
+import BackGround from &#39;./runtime/background&#39;
+import GameInfo   from &#39;./runtime/gameinfo&#39;
+import Music      from &#39;./runtime/music&#39;
+import DataBus    from &#39;./databus&#39;
+
+let ctx   = canvas.getContext(&#39;2d&#39;)
+let databus = new DataBus()
+
+/**
+ * 游戏主函数
+ */
+export default class Main {
+  constructor() {
+    // 维护当前requestAnimationFrame的id
+    this.aniId    = 0
+    //重新生成新的界面
+    this.restart()
+  }
+
+  //界面生成函数
+  restart() {
+    databus.reset()
+
+    canvas.removeEventListener(
+      &#39;touchstart&#39;,
+      this.touchHandler
+    )
+
+    this.bg       = new BackGround(ctx)
+    this.player   = new Player(ctx)
+    this.gameinfo = new GameInfo()
+    this.music    = new Music()
+
+    this.bindLoop     = this.loop.bind(this)
+    this.hasEventBind = false
+
+    // 清除上一局的动画
+    window.cancelAnimationFrame(this.aniId);
+
+    this.aniId = window.requestAnimationFrame(
+      this.bindLoop,
+      canvas
+    )
+  }
+
+  /**
+   * 随着帧数变化的敌机生成逻辑
+   * 帧数取模定义成生成的频率
+   */
+  enemyGenerate() {
+    if ( databus.frame % 30 === 0 ) {
+      let enemy = databus.pool.getItemByClass(&#39;enemy&#39;, Enemy)
+      enemy.init(6)
+      databus.enemys.push(enemy)
+    }
+  }
+
+  // 全局碰撞检测
+  collisionDetection() {
+    let that = this
+
+    databus.bullets.forEach((bullet) =&gt; {
+      for ( let i = 0, il = databus.enemys.length; i &lt; il;i++ ) {
+        let enemy = databus.enemys[i]
+
+        if ( !enemy.isPlaying &amp;&amp; enemy.isCollideWith(bullet) ) {
+          enemy.playAnimation()
+          that.music.playExplosion()
+
+          bullet.visible = false
+          databus.score  += 1
+
+          break
+        }
+      }
+    })
+
+    for ( let i = 0, il = databus.enemys.length; i &lt; il;i++ ) {
+      let enemy = databus.enemys[i]
+
+      if ( this.player.isCollideWith(enemy) ) {
+        databus.gameOver = true
+
+        break
+      }
+    }
+  }
+
+  // 游戏结束后的触摸事件处理逻辑
+  touchEventHandler(e) {
+     e.preventDefault()
+
+    let x = e.touches[0].clientX
+    let y = e.touches[0].clientY
+
+    let area = this.gameinfo.btnArea
+
+    if (   x &gt;= area.startX
+        &amp;&amp; x &lt;= area.endX
+        &amp;&amp; y &gt;= area.startY
+        &amp;&amp; y &lt;= area.endY  )
+      this.restart()
+  }
+
+  /**
+   * canvas重绘函数
+   * 每一帧重新绘制所有的需要展示的元素
+   */
+  render() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    this.bg.render(ctx)
+
+    databus.bullets
+          .concat(databus.enemys)
+          .forEach((item) =&gt; {
+              item.drawToCanvas(ctx)
+            })
+
+    this.player.drawToCanvas(ctx)
+
+    databus.animations.forEach((ani) =&gt; {
+      if ( ani.isPlaying ) {
+        ani.aniRender(ctx)
+      }
+    })
+
+    this.gameinfo.renderGameScore(ctx, databus.score)
+
+    // 游戏结束停止帧循环
+    if ( databus.gameOver ) {
+      this.gameinfo.renderGameOver(ctx, databus.score)
+
+      if ( !this.hasEventBind ) {
+        this.hasEventBind = true
+        this.touchHandler = this.touchEventHandler.bind(this)
+        canvas.addEventListener(&#39;touchstart&#39;, this.touchHandler)
+      }
+    }
+  }
+
+  // 游戏逻辑更新主函数
+  update() {
+    if ( databus.gameOver )
+      return;
+
+    this.bg.update()
+
+    databus.bullets
+           .concat(databus.enemys)
+           .forEach((item) =&gt; {
+              item.update()
+            })
+
+    this.enemyGenerate()
+
+    this.collisionDetection()
+
+    if ( databus.frame % 20 === 0 ) {
+      this.player.shoot()
+      this.music.playShoot()
+    }
+  }
+
+  // 实现游戏帧循环
+  loop() {
+    databus.frame++
+
+    this.update()
+    this.render()
+
+    this.aniId = window.requestAnimationFrame(
+      this.bindLoop,
+      canvas
+    )
+  }
+}
+</code></pre>
+</li>
+</ul>
+<h2 id="一点基础知识"><a href="#一点基础知识" class="headerlink" title="一点基础知识"></a>一点基础知识</h2><ul>
+<li>帧：游戏中的帧和动画中的帧，视频中的帧概念类似，即游戏过程中物体和动画效果变化的一个周期。</li>
+<li>精灵：是游戏中的一个基本概念，指的是在游戏中的一个基本物体或动画或贴图，如NPC或者敌人，在本例中有子弹，敌机和玩家</li>
+<li>回调函数：在特定事件发生后，由事件方进行调用的函数</li>
+<li>画布：顾名思义就是使用了画东西的地方，其实就是用于渲染相关内容的位置</li>
+</ul>
+<h2 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h2><p>main 即为游戏的主函数，我们来逐个分析一下其内容</p>
+<ul>
+<li>export default 为 ES6，即js的一个版本中的语言，在js中，任何类或对象使用export既可以在其他文件中通过import进行调用使用，使用 import {类或对象名} from 文件路径，但若使用export default则可以省略 { }， 但一份文件中仅仅可以存在一个export default</li>
+</ul>
+<h3 id="初始化生成对象"><a href="#初始化生成对象" class="headerlink" title="初始化生成对象"></a>初始化生成对象</h3><ol>
+<li><p>在main函数前其调用生成了一个2d画布，名称为ctx</p>
+</li>
+<li><p>生成了一个数据总线对象databus，数据总线的内容将在下次博客中解释</p>
+</li>
+</ol>
+<h3 id="main-类"><a href="#main-类" class="headerlink" title="main 类"></a>main 类</h3><h4 id="contructor"><a href="#contructor" class="headerlink" title="contructor()"></a>contructor()</h4><p>contructor 用于创建main 对象，其中调用了restart函数，因此我们跳转到restart函数中进行查看</p>
+<h4 id="restart"><a href="#restart" class="headerlink" title="restart()"></a>restart()</h4><p>该函数用于重新生成一个界面</p>
+<ul>
+<li><p>首先重置数据总线对象的内容</p>
+</li>
+<li><p>监听触碰事件</p>
+</li>
+<li><p>初始化背景对象，玩家对象，游戏信息对象和音乐对象</p>
+<pre><code class="js">this.bg       = new BackGround(ctx)
+this.player   = new Player(ctx)
+this.gameinfo = new GameInfo()
+this.music    = new Music()</code></pre>
+</li>
+</ul>
+<ul>
+<li><p>绑定事件循环，初始化状态，并开始运行</p>
+<pre><code class="js">this.bindLoop     = this.loop.bind(this)
+    this.hasEventBind = false
+
+    // 清除上一局的动画
+    window.cancelAnimationFrame(this.aniId);
+
+    this.aniId = window.requestAnimationFrame(
+      this.bindLoop,
+      canvas
+    )</code></pre>
+</li>
+<li><p>js语法中，可以将某个对象的方法单独拿出来作为一个方法使用，但是在使用过程中，避免不了出现未知该函数所指向的对象的情况</p>
+<ul>
+<li>例如在该代码中，若写作<code>this.bindLoop = this.loop</code>  那么该函数所属的类就丢失了，那么该函数一些执行也就无法进行</li>
+<li>为了避免这样的情况，js使用bind函数，将所需的类绑定到该函数上，这样就有效地解决了这个问题</li>
+</ul>
+</li>
+<li><p><code>window.requestAnimationFrame()</code></p>
+<ul>
+<li>该函数使用了两个参数，第一个是回调函数，第二个是画布</li>
+<li>画布的功能即用来工作的区域</li>
+<li>而回调函数的作用是在浏览器在该帧渲染完毕之后，调用的函数，根据博主的资料查询，回调函数执行次数通常是每秒60次，但在大多数遵循W3C建议的浏览器中，回调函数执行次数通常与浏览器屏幕刷新次数相匹配。</li>
+<li>在该例子中，restart中的该函数仅仅是使用初始化的main对象更新loop函数，并将其作为刷新内容</li>
+<li>但由于main对象中的逻辑会产生变更，因此在之后的loop函数也对其进行了请求，并绑定了参数。使用新缠身过的main对象和新产生的canvas在浏览器中进行渲染</li>
+</ul>
+</li>
+</ul>
+<h4 id="enemyGenerate"><a href="#enemyGenerate" class="headerlink" title="enemyGenerate()"></a>enemyGenerate()</h4><p>该函数用于生成敌人飞机</p>
+<ul>
+<li>在databus中有一个frame参数，相当于每次刷新（更新）的计数器，</li>
+<li>使用该函数时，若刷新次数为30的整数倍时，就会申请一个新的敌机对象并初始化，其中init的参数为该敌机的速度，生成后加入databus对象的存储数组中</li>
+</ul>
+<h4 id="collisionDetection（）"><a href="#collisionDetection（）" class="headerlink" title="collisionDetection（）"></a>collisionDetection（）</h4><p>全局碰撞检测</p>
+<ul>
+<li>首先对于每个子弹，判断子弹是否与敌机相撞，若相撞则隐藏敌机和子弹<ul>
+<li>该处需要解释一下的是，将子弹和敌机隐藏的是直接代表子弹和敌机已经销毁</li>
+<li>但此处并未在逻辑中将对象销毁，而是在绘图中判断其visible是否为true，若为true则才会画入画布中</li>
+<li>而统一更新回收入pool</li>
+</ul>
+</li>
+<li>对每一架敌机，判断是否与用户相撞，若相撞，则在databus中设置游戏结束</li>
+</ul>
+<h4 id="touchEventHandler-e"><a href="#touchEventHandler-e" class="headerlink" title="touchEventHandler(e)"></a>touchEventHandler(e)</h4><p>游戏结束后判断是否重新开始的函数</p>
+<ul>
+<li>获取触摸的坐标</li>
+<li>在gameinfo中获取重新开始上下左右xy坐标</li>
+<li>比对触摸位置是否在按钮内部，若在则调用restart函数重新启动函数</li>
+</ul>
+<h4 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h4><p>渲染函数，用于渲染场景，用于每次修改内容后重新渲染场景内容（每一帧调用）</p>
+<ul>
+<li>清除画布的所有内容</li>
+<li>调用背景类的渲染函数，在ctx上渲染出一个背景</li>
+<li>concat函数为js函数，用于连接连个数组</li>
+<li>连接databus中的bullets和enemys数组，并且将这个合成数组中的每一项画到画布上，画到画布上的操作是以利用函数drawToCanvas，而该函数实现于Spirite类中，</li>
+<li>spirit即精灵，是游戏设计中的一个概念，相当于游戏中一个最基本的物体或者一个概念，该demo中的spirit实现方式将在后续博客中写上</li>
+<li>将player画到画布上，同样的，player也继承于Spirit类</li>
+<li>将所有动画类的未播放的内容进行播放，在该demo中，Animation类继承Spirit，而所有物体均继承于Animation类，因此都具有该能力，不过由于所有物体都均仅有一帧图像，因此无需进行播放，</li>
+<li>在databus类中有一个专门存放动画的数组，任何继承于Animation类的对象都会在初始化构造时被放入该数组当中</li>
+<li>调用gameinfo的函数更新图像左上角的分数内容</li>
+<li>判断，若游戏结束<ul>
+<li>若未绑定事件，将touchHandler事件添加绑定，</li>
+<li>将事件加入监听中</li>
+<li>（该段代码博主并未非常理解，欢迎在评论中指正或指导）</li>
+</ul>
+</li>
+</ul>
+<h4 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h4><p>游戏逻辑更新主函数</p>
+<ul>
+<li>若游戏已经结束，不执行该代码，直接放回结束</li>
+<li>更新背景参数</li>
+<li>对所有bullets和enemys对象进行更新</li>
+<li>调用enemyGenerate() 生成敌人（根据前面描述，需要判断是否满足刚好经过30帧）</li>
+<li>进行全局碰撞检测，并进行处理</li>
+<li>判断是否经过20帧，每经过20帧，调用player生成一个新的bullet（子弹），并且调用射击音乐</li>
+</ul>
+<h4 id="loop"><a href="#loop" class="headerlink" title="loop()"></a>loop()</h4><p>实现游戏帧循环</p>
+<ul>
+<li>每次循环将帧计数器加一</li>
+<li>更新逻辑</li>
+<li>渲染逻辑更新后的场景</li>
+<li>使用<code>window.requestAnimationFrame</code>进行调用，为下一帧界面渲染做准备</li>
+</ul>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = '';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/'; 
+            this.page.identifier = '/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>	    
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"><b>Pheonix</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"> <b>小谢</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "微信小游戏 demo 飞机大战 代码分析（一）(main.js)&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

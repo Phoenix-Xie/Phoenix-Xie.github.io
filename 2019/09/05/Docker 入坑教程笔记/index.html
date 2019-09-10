@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好">
+    <meta name="author" content="Phoenix">
+    <meta name="keywords" content>
+    <title>Docker 入坑教程笔记 ~ Phoenix&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Phoenix&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期四, 九月 5日 2019, 8:22 早上</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <h1 id="Docker-入坑教程笔记"><a href="#Docker-入坑教程笔记" class="headerlink" title="Docker 入坑教程笔记"></a>Docker 入坑教程笔记</h1><blockquote>
+<p>视频网址B站：<a href="https://www.bilibili.com/video/av17854410/?p=1" target="_blank" rel="noopener">点这里</a></p>
+</blockquote>
+<blockquote>
+<p>查询命令 man</p>
+</blockquote>
+<h2 id="docker-简单启动和退出"><a href="#docker-简单启动和退出" class="headerlink" title="docker 简单启动和退出"></a>docker 简单启动和退出</h2><ul>
+<li><code>docker run --name [容器名] -i -t ubuntu  /bin/bash</code>  交互启动虚拟机</li>
+<li><code>-t</code> 提供伪tty终端</li>
+<li><code>docker ps [-a][-l]</code></li>
+<li><code>docker inspect [container name or id]</code> 配置信息，有用数据</li>
+<li><code>docker start [-i]</code> 重新启动停止容器</li>
+<li><code>exit</code> 退出</li>
+</ul>
+<h2 id="docker-守护式进程启动"><a href="#docker-守护式进程启动" class="headerlink" title="docker 守护式进程启动"></a>docker 守护式进程启动</h2><h3 id="启"><a href="#启" class="headerlink" title="启"></a>启</h3><ul>
+<li><code>ctrl + P ctrl + Q</code>  交互式运行<ul>
+<li><code>ps</code> 不加a可以看到正在运行的容器</li>
+</ul>
+</li>
+</ul>
+<h3 id="docker-查看情况"><a href="#docker-查看情况" class="headerlink" title="docker 查看情况"></a>docker 查看情况</h3><ul>
+<li><p><code>docker run -d</code> 启动一个守护式容器</p>
+</li>
+<li><p><code>docker logs [容器名] -tf</code>  t是显示实践 f是显示日志 –tail 选取一定最后数量日志</p>
+</li>
+<li><p><code>docker top [容器名]</code> 查看容器中的进程数量</p>
+</li>
+<li><p><code>docker exec [-d] [-i] [-t] 容器名 [COMMAND]</code>     启动一个容器进程</p>
+</li>
+</ul>
+<h3 id="停止守护式容器"><a href="#停止守护式容器" class="headerlink" title="停止守护式容器"></a>停止守护式容器</h3><ul>
+<li><code>docker stop</code> 发出停止信号</li>
+<li><code>docker kill</code> 直接停止</li>
+</ul>
+<h2 id="容器部署网站所需命令"><a href="#容器部署网站所需命令" class="headerlink" title="容器部署网站所需命令"></a>容器部署网站所需命令</h2><h3 id="容器端口映射设置"><a href="#容器端口映射设置" class="headerlink" title="容器端口映射设置"></a>容器端口映射设置</h3><ul>
+<li><code>run [-P] [-p]</code> 端口  大写P会全部映射，小写p指定映射</li>
+<li><code>docker run -p hostPort:containerPort</code></li>
+</ul>
+<h2 id="本地与远程镜像"><a href="#本地与远程镜像" class="headerlink" title="本地与远程镜像"></a>本地与远程镜像</h2><h3 id="docker信息"><a href="#docker信息" class="headerlink" title="docker信息"></a>docker信息</h3><ul>
+<li><code>docker info</code></li>
+</ul>
+<h3 id="本地镜像操作"><a href="#本地镜像操作" class="headerlink" title="本地镜像操作"></a>本地镜像操作</h3><ul>
+<li><p><code>docker images</code> </p>
+<ul>
+<li>REPOSITORY 仓库   和 REGISTRY(存储位置) 不一样</li>
+<li>TAG    REPOSITORY + TAG行成一个完整的镜像</li>
+</ul>
+</li>
+<li><p><code>docker inspect CONTANINER|IMAGE</code> 查看容器|镜像 的详细信息</p>
+</li>
+<li><p><code>docker rmi IMAGE</code>  删除镜像 镜像用 完整镜像名 REPOSITORY:TAG</p>
+<ul>
+<li>使用id删除可以删除所有相同的镜像</li>
+</ul>
+</li>
+</ul>
+<h3 id="镜像获取和推送"><a href="#镜像获取和推送" class="headerlink" title="镜像获取和推送"></a>镜像获取和推送</h3><ul>
+<li>查找镜像<ul>
+<li>[Docker Hub][<a href="https://hub.docker.com/]" target="_blank" rel="noopener">https://hub.docker.com/]</a></li>
+<li>docker search TERM <ul>
+<li>docker search -s 3 ubuntu 搜索星级3星以上的镜像</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>拉取镜像<ul>
+<li>docker pull REPOSITORY:TAG </li>
+<li>–registry-mirror=</li>
+<li><a href="http://www.daocloud.io" target="_blank" rel="noopener">http://www.daocloud.io</a></li>
+</ul>
+</li>
+<li>推送镜像<ul>
+<li>docker push 本地镜像名</li>
+<li>需要有相关账户</li>
+</ul>
+</li>
+</ul>
+<h2 id="镜像构建"><a href="#镜像构建" class="headerlink" title="镜像构建"></a>镜像构建</h2><h3 id="镜像提交"><a href="#镜像提交" class="headerlink" title="镜像提交"></a>镜像提交</h3><pre><code class="c++">docker commit container名称 image名称 (仓库/镜像名)
+-a 填写作者信息
+-m 镜像信息</code></pre>
+<p>之后便可以直接用该镜像运行容器</p>
+<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4><pre><code>#First Dockerfile
+FROM ubuntu:14.04
+MAINTAINNER 容器名 作者信息
+命令</code></pre><h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><pre><code>docker build [OPTION] PATH | URL | -
+-t, --tag=&quot;&quot; </code></pre><h2 id="Docker-C-S模式"><a href="#Docker-C-S模式" class="headerlink" title="Docker C/S模式"></a>Docker C/S模式</h2><h3 id="Remote-API"><a href="#Remote-API" class="headerlink" title="Remote API"></a>Remote API</h3><p>可以直接访问docker守护式进程</p>
+<h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><p>unix </p>
+<p>tcp</p>
+<p>fd</p>
+<p> 6</p>
+<h2 id="Docker-File-语法详解"><a href="#Docker-File-语法详解" class="headerlink" title="Docker File 语法详解"></a>Docker File 语法详解</h2><h2 id="Docker-File-构建过程"><a href="#Docker-File-构建过程" class="headerlink" title="Docker File 构建过程"></a>Docker File 构建过程</h2><ul>
+<li>从基础镜像运行一个指令</li>
+<li>执行一条指令，对容器进行修改</li>
+<li>执行类似于docker commit的操作，提交一个新的镜像层</li>
+<li>再基于刚提交的镜像运行一个新容器</li>
+<li>执行Dockerfile 中的下一条指令，直至所有指令执行完毕</li>
+</ul>
+<blockquote>
+<p>docker 并未删除中间层容器，仅仅删除中间层镜像，可以使用run运行中间层镜像</p>
+</blockquote>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><h4 id="本机文件复制到docker"><a href="#本机文件复制到docker" class="headerlink" title="本机文件复制到docker"></a>本机文件复制到docker</h4><pre><code>docker cp /opt/software/temp/test/test.txt 688e83c55129:/test/</code></pre><p>可以复制文件或文件夹</p>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/docker%20%E6%9C%8D%E5%8A%A1%E5%99%A8">docker 服务器</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = '';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/09/05/Docker 入坑教程笔记/'; 
+            this.page.identifier = '/2019/09/05/Docker 入坑教程笔记/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>	    
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"><b>Pheonix</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"> <b>小谢</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "Docker 入坑教程笔记&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

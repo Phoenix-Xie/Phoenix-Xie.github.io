@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好">
+    <meta name="author" content="Phoenix">
+    <meta name="keywords" content>
+    <title>微信小游戏 demo 飞机大战 代码分析（二）(databus.js) ~ Phoenix&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Phoenix&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期二, 九月 10日 2019, 8:22 早上</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <h1 id="微信小游戏-demo-飞机大战-代码分析（二）-databus-js"><a href="#微信小游戏-demo-飞机大战-代码分析（二）-databus-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（二）(databus.js)"></a>微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10948630.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</a></p>
+<p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</a></p>
+<p><a href="https://www.cnblogs.com/Phoenix-blog/p/10955093.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</a></p>
+<blockquote>
+<p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p>
+</blockquote>
+<blockquote>
+<p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p>
+</blockquote>
+<h2 id="databus-js"><a href="#databus-js" class="headerlink" title="databus.js"></a>databus.js</h2><p>代码：</p>
+<pre><code class="js">import Pool from &#39;./base/pool&#39;
+
+let instance
+
+/**
+ * 全局状态管理器
+ */
+export default class DataBus {
+  constructor() {
+    if ( instance )
+      return instance
+
+    instance = this
+
+    this.pool = new Pool()
+
+    this.reset()
+  }
+
+  reset() {
+    this.frame      = 0
+    this.score      = 0
+    this.bullets    = []
+    this.enemys     = []
+    this.animations = []
+    this.gameOver   = false
+  }
+
+  /**
+   * 回收敌人，进入对象池
+   * 此后不进入帧循环
+   */
+  removeEnemey(enemy) {
+    let temp = this.enemys.shift()
+
+    temp.visible = false
+
+    this.pool.recover(&#39;enemy&#39;, enemy)
+  }
+
+  /**
+   * 回收子弹，进入对象池
+   * 此后不进入帧循环
+   */
+  removeBullets(bullet) {
+    let temp = this.bullets.shift()
+
+    temp.visible = false
+
+    this.pool.recover(&#39;bullet&#39;, bullet)
+  }
+}
+</code></pre>
+<h4 id="instance"><a href="#instance" class="headerlink" title="instance"></a>instance</h4><ul>
+<li>该对象用于承载该文件中惟一的databus类，实现单例模式</li>
+<li>单例模式是一种设计模式，保证全局仅有一个该类的对象，这样能在该demo中保证全局数据的一致性</li>
+</ul>
+<h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p>构造器</p>
+<ul>
+<li>如果instance不为空已经存在，那么就返回instance<ul>
+<li>这是实现单例模式，保证不管多少次new都只能产生一个对象</li>
+</ul>
+</li>
+<li>如果不为空，将instance设置为自身，并进行下列初始化操作<ul>
+<li>创建一个对象池pool<ul>
+<li>对象池技术是通过将生成的对象暂时保存于池中，需要对象时先在池中查看是否有多余对象，若不足再生成对象，而在销毁对象时不进行真正销毁，而是加入对象池中    </li>
+</ul>
+</li>
+<li>重置所有内容，设置为空</li>
+</ul>
+</li>
+</ul>
+<h4 id="removeEnemey-enemy"><a href="#removeEnemey-enemy" class="headerlink" title="removeEnemey(enemy)"></a>removeEnemey(enemy)</h4><p>移除某个敌方对象（敌机）</p>
+<ul>
+<li>从enemys数组中获取第一个元素<ul>
+<li>shift方法是js中移除第一个元素并返回的方法</li>
+</ul>
+</li>
+<li>设置其不可见</li>
+<li>移入名为enemy的池中</li>
+</ul>
+<h4 id="removeBullet-bullet"><a href="#removeBullet-bullet" class="headerlink" title="removeBullet(bullet)"></a>removeBullet(bullet)</h4><p>移除某一个子弹</p>
+<p>操作方式同上一个函数相同</p>
+<h2 id="pool-js"><a href="#pool-js" class="headerlink" title="pool.js"></a>pool.js</h2><p>一个用于实现对象池的函数</p>
+<p>代码：</p>
+<pre><code class="js">const __ = {
+  poolDic: Symbol(&#39;poolDic&#39;)
+}
+
+/**
+ * 简易的对象池实现
+ * 用于对象的存贮和重复使用
+ * 可以有效减少对象创建开销和避免频繁的垃圾回收
+ * 提高游戏性能
+ */
+export default class Pool {
+  constructor() {
+    this[__.poolDic] = {}
+  }
+
+  /**
+   * 根据对象标识符
+   * 获取对应的对象池
+   */
+  getPoolBySign(name) {
+    return this[__.poolDic][name] || ( this[__.poolDic][name] = [] )
+  }
+
+  /**
+   * 根据传入的对象标识符，查询对象池
+   * 对象池为空创建新的类，否则从对象池中取
+   */
+  getItemByClass(name, className) {
+    let pool = this.getPoolBySign(name)
+
+    let result = (  pool.length
+                  ? pool.shift()
+                  : new className()  )
+
+    return result
+  }
+
+  /**
+   * 将对象回收到对象池
+   * 方便后续继续使用
+   */
+  recover(name, instance) {
+    this.getPoolBySign(name).push(instance)
+  }
+}
+</code></pre>
+<h4 id="const"><a href="#const" class="headerlink" title="const __"></a>const __</h4><p>用于防止魔术字符串出现的常量列表</p>
+<ul>
+<li>Symbol<ul>
+<li>在js中反复用于获取某些值或者对象的字符串称为魔术字符串，如果字符串过多，正常使用可以，但是若需要修改，则需要同时修改多个字符串，非常不利于维护</li>
+<li>为了解决这个问题，ES6引入了一个新的数据类型Symbol，用于存储这些字符串类型，而之后需要用到该字符串仅需要用该常量取得</li>
+<li>symbol类型为类似于字符串的类型，不能使用new命令，也不能添加属性</li>
+</ul>
+</li>
+<li>在这里声明了一个对象名称为poolDic，用于保存多个对象池的一个字典</li>
+</ul>
+<h4 id="constructor"><a href="#constructor" class="headerlink" title="constructor()"></a>constructor()</h4><ul>
+<li>创建一个空的poolDic</li>
+</ul>
+<h4 id="getPoolBySign-name"><a href="#getPoolBySign-name" class="headerlink" title="getPoolBySign(name)"></a>getPoolBySign(name)</h4><ul>
+<li>根据传入的名称获取相应的对象池，若不存在则生成一个新的，以一个数组来作为对象池</li>
+</ul>
+<h4 id="getItemByClass-name-className"><a href="#getItemByClass-name-className" class="headerlink" title="getItemByClass(name, className)"></a>getItemByClass(name, className)</h4><p>获取对象</p>
+<ul>
+<li>获取相应对象池</li>
+<li>判断对象池是否为空，若不为空，返回第一个元素，并从对象池中移除</li>
+<li>若不为空，则用传入的类名生成新的一个对象</li>
+</ul>
+<h4 id="recover-name-instance"><a href="#recover-name-instance" class="headerlink" title="recover(name, instance)"></a>recover(name, instance)</h4><p>回收对象</p>
+<ul>
+<li>获取对象池并向其中推入元素<ul>
+<li>push是js数组中的操作，用于将元素打入数组当中</li>
+</ul>
+</li>
+</ul>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = '';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/'; 
+            this.page.identifier = '/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>	    
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"><b>Pheonix</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"> <b>小谢</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "微信小游戏 demo 飞机大战 代码分析（二）(databus.js)&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

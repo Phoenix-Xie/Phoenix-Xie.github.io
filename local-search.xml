@@ -4,58 +4,17 @@
   
     
     <entry>
-      <title>about</title>
-      <link href="undefined2019/09/07/about-1/"/>
-      <url>2019/09/07/about-1/</url>
+      <title>微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</title>
+      <link href="undefined2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%202(databus.js)/"/>
+      <url>2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%202(databus.js)/</url>
       
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>about</title>
-      <link href="undefined2019/09/07/about/"/>
-      <url>2019/09/07/about/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>测试2</title>
-      <link href="undefined2019/09/06/%E6%B5%8B%E8%AF%952/"/>
-      <url>2019/09/06/%E6%B5%8B%E8%AF%952/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>测试</title>
-      <link href="undefined2019/09/06/%E6%B5%8B%E8%AF%95/"/>
-      <url>2019/09/06/%E6%B5%8B%E8%AF%95/</url>
-      
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="微信小游戏-demo-飞机大战-代码分析（二）-databus-js"><a href="#微信小游戏-demo-飞机大战-代码分析（二）-databus-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（二）(databus.js)"></a>微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10948630.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10955093.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</a></p><blockquote><p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p></blockquote><blockquote><p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p></blockquote><h2 id="databus-js"><a href="#databus-js" class="headerlink" title="databus.js"></a>databus.js</h2><p>代码：</p><pre><code class="js">import Pool from &#39;./base/pool&#39;let instance/** * 全局状态管理器 */export default class DataBus {  constructor() {    if ( instance )      return instance    instance = this    this.pool = new Pool()    this.reset()  }  reset() {    this.frame      = 0    this.score      = 0    this.bullets    = []    this.enemys     = []    this.animations = []    this.gameOver   = false  }  /**   * 回收敌人，进入对象池   * 此后不进入帧循环   */  removeEnemey(enemy) {    let temp = this.enemys.shift()    temp.visible = false    this.pool.recover(&#39;enemy&#39;, enemy)  }  /**   * 回收子弹，进入对象池   * 此后不进入帧循环   */  removeBullets(bullet) {    let temp = this.bullets.shift()    temp.visible = false    this.pool.recover(&#39;bullet&#39;, bullet)  }}</code></pre><h4 id="instance"><a href="#instance" class="headerlink" title="instance"></a>instance</h4><ul><li>该对象用于承载该文件中惟一的databus类，实现单例模式</li><li>单例模式是一种设计模式，保证全局仅有一个该类的对象，这样能在该demo中保证全局数据的一致性</li></ul><h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p>构造器</p><ul><li>如果instance不为空已经存在，那么就返回instance<ul><li>这是实现单例模式，保证不管多少次new都只能产生一个对象</li></ul></li><li>如果不为空，将instance设置为自身，并进行下列初始化操作<ul><li>创建一个对象池pool<ul><li>对象池技术是通过将生成的对象暂时保存于池中，需要对象时先在池中查看是否有多余对象，若不足再生成对象，而在销毁对象时不进行真正销毁，而是加入对象池中    </li></ul></li><li>重置所有内容，设置为空</li></ul></li></ul><h4 id="removeEnemey-enemy"><a href="#removeEnemey-enemy" class="headerlink" title="removeEnemey(enemy)"></a>removeEnemey(enemy)</h4><p>移除某个敌方对象（敌机）</p><ul><li>从enemys数组中获取第一个元素<ul><li>shift方法是js中移除第一个元素并返回的方法</li></ul></li><li>设置其不可见</li><li>移入名为enemy的池中</li></ul><h4 id="removeBullet-bullet"><a href="#removeBullet-bullet" class="headerlink" title="removeBullet(bullet)"></a>removeBullet(bullet)</h4><p>移除某一个子弹</p><p>操作方式同上一个函数相同</p><h2 id="pool-js"><a href="#pool-js" class="headerlink" title="pool.js"></a>pool.js</h2><p>一个用于实现对象池的函数</p><p>代码：</p><pre><code class="js">const __ = {  poolDic: Symbol(&#39;poolDic&#39;)}/** * 简易的对象池实现 * 用于对象的存贮和重复使用 * 可以有效减少对象创建开销和避免频繁的垃圾回收 * 提高游戏性能 */export default class Pool {  constructor() {    this[__.poolDic] = {}  }  /**   * 根据对象标识符   * 获取对应的对象池   */  getPoolBySign(name) {    return this[__.poolDic][name] || ( this[__.poolDic][name] = [] )  }  /**   * 根据传入的对象标识符，查询对象池   * 对象池为空创建新的类，否则从对象池中取   */  getItemByClass(name, className) {    let pool = this.getPoolBySign(name)    let result = (  pool.length                  ? pool.shift()                  : new className()  )    return result  }  /**   * 将对象回收到对象池   * 方便后续继续使用   */  recover(name, instance) {    this.getPoolBySign(name).push(instance)  }}</code></pre><h4 id="const"><a href="#const" class="headerlink" title="const __"></a>const __</h4><p>用于防止魔术字符串出现的常量列表</p><ul><li>Symbol<ul><li>在js中反复用于获取某些值或者对象的字符串称为魔术字符串，如果字符串过多，正常使用可以，但是若需要修改，则需要同时修改多个字符串，非常不利于维护</li><li>为了解决这个问题，ES6引入了一个新的数据类型Symbol，用于存储这些字符串类型，而之后需要用到该字符串仅需要用该常量取得</li><li>symbol类型为类似于字符串的类型，不能使用new命令，也不能添加属性</li></ul></li><li>在这里声明了一个对象名称为poolDic，用于保存多个对象池的一个字典</li></ul><h4 id="constructor"><a href="#constructor" class="headerlink" title="constructor()"></a>constructor()</h4><ul><li>创建一个空的poolDic</li></ul><h4 id="getPoolBySign-name"><a href="#getPoolBySign-name" class="headerlink" title="getPoolBySign(name)"></a>getPoolBySign(name)</h4><ul><li>根据传入的名称获取相应的对象池，若不存在则生成一个新的，以一个数组来作为对象池</li></ul><h4 id="getItemByClass-name-className"><a href="#getItemByClass-name-className" class="headerlink" title="getItemByClass(name, className)"></a>getItemByClass(name, className)</h4><p>获取对象</p><ul><li>获取相应对象池</li><li>判断对象池是否为空，若不为空，返回第一个元素，并从对象池中移除</li><li>若不为空，则用传入的类名生成新的一个对象</li></ul><h4 id="recover-name-instance"><a href="#recover-name-instance" class="headerlink" title="recover(name, instance)"></a>recover(name, instance)</h4><p>回收对象</p><ul><li>获取对象池并向其中推入元素<ul><li>push是js数组中的操作，用于将元素打入数组当中</li></ul></li></ul>]]></content>
       
       
       
         <tags>
             
-            <tag> 算法 </tag>
-            
-            <tag> 测试 </tag>
+            <tag> 微信小程序 </tag>
             
         </tags>
       
@@ -64,26 +23,437 @@
     
     
     <entry>
-      <title>你好世界</title>
-      <link href="undefined2019/09/05/%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C/"/>
-      <url>2019/09/05/%E4%BD%A0%E5%A5%BD%E4%B8%96%E7%95%8C/</url>
+      <title>微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</title>
+      <link href="undefined2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%20%EF%BC%88%E5%9B%9B%EF%BC%89(enemy.js%EF%BC%8C%20bullet.js,%20index.js)/"/>
+      <url>2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%20%EF%BC%88%E5%9B%9B%EF%BC%89(enemy.js%EF%BC%8C%20bullet.js,%20index.js)/</url>
       
-        <content type="html"><![CDATA[<p>你好啊，第一次使用该框架’<br>wtffff</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="微信小游戏-demo-飞机大战-代码分析（四）-enemy-js，-bullet-js-index-js"><a href="#微信小游戏-demo-飞机大战-代码分析（四）-enemy-js，-bullet-js-index-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)"></a>微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10948630.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</a></p><blockquote><p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p></blockquote><blockquote><p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p></blockquote><h2 id="enemy-js"><a href="#enemy-js" class="headerlink" title="enemy.js"></a>enemy.js</h2><p>用于实现敌人对象</p><p>代码</p><pre><code class="js">import Animation from &#39;../base/animation&#39;import DataBus   from &#39;../databus&#39;const ENEMY_IMG_SRC = &#39;images/enemy.png&#39;const ENEMY_WIDTH   = 60const ENEMY_HEIGHT  = 60const __ = {  speed: Symbol(&#39;speed&#39;)}let databus = new DataBus()function rnd(start, end){  return Math.floor(Math.random() * (end - start) + start)}export default class Enemy extends Animation {  constructor() {    super(ENEMY_IMG_SRC, ENEMY_WIDTH, ENEMY_HEIGHT)    this.initExplosionAnimation()  }  init(speed) {    this.x = rnd(0, window.innerWidth - ENEMY_WIDTH)    this.y = -this.height    this[__.speed] = speed    this.visible = true  }  // 预定义爆炸的帧动画  initExplosionAnimation() {    let frames = []    const EXPLO_IMG_PREFIX  = &#39;images/explosion&#39;    const EXPLO_FRAME_COUNT = 19    for ( let i = 0;i &lt; EXPLO_FRAME_COUNT;i++ ) {      frames.push(EXPLO_IMG_PREFIX + (i + 1) + &#39;.png&#39;)    }    this.initFrames(frames)  }  // 每一帧更新子弹位置  update() {    this.y += this[__.speed]    // 对象回收    if ( this.y &gt; window.innerHeight + this.height )      databus.removeEnemey(this)  }}</code></pre><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><h4 id="导入相应文件"><a href="#导入相应文件" class="headerlink" title="导入相应文件"></a>导入相应文件</h4><h4 id="创建所需常量"><a href="#创建所需常量" class="headerlink" title="创建所需常量"></a>创建所需常量</h4><p>分别是敌机的图片位置，高度和宽度</p><h4 id="创建symbol常量和databus对象"><a href="#创建symbol常量和databus对象" class="headerlink" title="创建symbol常量和databus对象"></a>创建symbol常量和databus对象</h4><ul><li>symbol的解释见 <a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析 2(databus.js)</a></li></ul><h4 id="rnd-start-end"><a href="#rnd-start-end" class="headerlink" title="rnd(start,end)"></a>rnd(start,end)</h4><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/random" target="_blank" rel="noopener">Math.random()</a> 用于提供[0,1)区间的浮点数</li><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/floor" target="_blank" rel="noopener">Math.floor()</a> 返回小于等于该数字最大的整数</li><li>该函数的作用是返回一个start到end区间（end不取）返回内的一个随机数</li><li>在后面该函数用于生成敌机的位置</li></ul><h3 id="Enemy"><a href="#Enemy" class="headerlink" title="Enemy"></a>Enemy</h3><p>敌人类，继承与Animation类</p><h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor()"></a>constructor()</h4><p>构造器</p><ul><li>根据提供的常量初始化敌机对象</li><li>并且初始化爆炸动画，该函数在之后实现</li></ul><h4 id="init-speed"><a href="#init-speed" class="headerlink" title="init(speed)"></a>init(speed)</h4><p>初始化敌机速度</p><ul><li>获取随机生成x坐标作为起始x位置</li><li>获取其本身的高度取负值作为起始y坐标（一开始整个敌机还未进入屏幕，慢慢一点一点进入）</li><li>js中坐标原点为屏幕左上角，以原点向左为x正方向，原点向下为y正方向，</li></ul><h4 id="initExplosionAnimation"><a href="#initExplosionAnimation" class="headerlink" title="initExplosionAnimation()"></a>initExplosionAnimation()</h4><p>定义爆炸帧动画</p><ul><li>创建一个数组</li><li>设定爆炸的每一帧动画的具体位置，以及数量</li><li>创建一个frames数组，将图片按顺序读取并加入数组中</li><li>将该数组作为Animation类中定义的方法initFrames的参数初始化爆炸动画</li></ul><h4 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h4><p>逻辑更新函数，更新物体的参数，基本每个具体物体都具有该函数</p><ul><li><p>按速度没回合加上一定的y坐标（由于敌机是往下走的，因此加上）</p></li><li><p>若发现对象移动出屏幕，则将其回收</p></li></ul><h2 id="bullet-js"><a href="#bullet-js" class="headerlink" title="bullet.js"></a>bullet.js</h2><p>子弹的实现</p><h3 id="初始化-1"><a href="#初始化-1" class="headerlink" title="初始化"></a>初始化</h3><h4 id="导入相应包"><a href="#导入相应包" class="headerlink" title="导入相应包"></a>导入相应包</h4><h4 id="定义需要的基本常量"><a href="#定义需要的基本常量" class="headerlink" title="定义需要的基本常量"></a>定义需要的基本常量</h4><h4 id="定义symbol和生成databus"><a href="#定义symbol和生成databus" class="headerlink" title="定义symbol和生成databus"></a>定义symbol和生成databus</h4><ul><li>symbol的解释见 <a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析 2(databus.js)</a></li></ul><h3 id="Bullet"><a href="#Bullet" class="headerlink" title="Bullet"></a>Bullet</h3><p>子弹实现类，继承于精灵类（没有继承于动画类，其无需动画）</p><p>代码</p><pre><code class="js">import Sprite   from &#39;../base/sprite&#39;import DataBus  from &#39;../databus&#39;const BULLET_IMG_SRC = &#39;images/bullet.png&#39;const BULLET_WIDTH   = 16const BULLET_HEIGHT  = 30const __ = {  speed: Symbol(&#39;speed&#39;)}let databus = new DataBus()export default class Bullet extends Sprite {  constructor() {    super(BULLET_IMG_SRC, BULLET_WIDTH, BULLET_HEIGHT)  }  init(x, y, speed) {    this.x = x    this.y = y    this[__.speed] = speed    this.visible = true  }  // 每一帧更新子弹位置  update() {    this.y -= this[__.speed]    // 超出屏幕外回收自身    if ( this.y &lt; -this.height )      databus.removeBullets(this)  }}</code></pre><h4 id="constructor"><a href="#constructor" class="headerlink" title="constructor"></a>constructor</h4><p>构造器</p><ul><li>通过预设置的常量初始化超类</li></ul><h4 id="init-x-y-speed"><a href="#init-x-y-speed" class="headerlink" title="init(x, y, speed)"></a>init(x, y, speed)</h4><p>初始化坐标位置和速度</p><h4 id="update-1"><a href="#update-1" class="headerlink" title="update()"></a>update()</h4><p>逻辑更新函数</p><ul><li>为y坐标向上增加速度的大小，即应该减去速度的数值</li><li>将整个子弹超出屏幕外的（因此是小于-this.height而不是0)移入对象池中，即出游戏</li></ul><h2 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h2><p>玩家类</p><p>代码</p><pre><code class="js">import Sprite   from &#39;../base/sprite&#39;import Bullet   from &#39;./bullet&#39;import DataBus  from &#39;../databus&#39;const screenWidth    = window.innerWidthconst screenHeight   = window.innerHeight// 玩家相关常量设置const PLAYER_IMG_SRC = &#39;images/hero.png&#39;const PLAYER_WIDTH   = 80const PLAYER_HEIGHT  = 80let databus = new DataBus()export default class Player extends Sprite {  constructor() {    super(PLAYER_IMG_SRC, PLAYER_WIDTH, PLAYER_HEIGHT)    // 玩家默认处于屏幕底部居中位置    this.x = screenWidth / 2 - this.width / 2    this.y = screenHeight - this.height - 30    // 用于在手指移动的时候标识手指是否已经在飞机上了    this.touched = false    this.bullets = []    // 初始化事件监听    this.initEvent()  }  /**   * 当手指触摸屏幕的时候   * 判断手指是否在飞机上   * @param {Number} x: 手指的X轴坐标   * @param {Number} y: 手指的Y轴坐标   * @return {Boolean}: 用于标识手指是否在飞机上的布尔值   */  checkIsFingerOnAir(x, y) {    const deviation = 30    return !!(   x &gt;= this.x - deviation              &amp;&amp; y &gt;= this.y - deviation              &amp;&amp; x &lt;= this.x + this.width + deviation              &amp;&amp; y &lt;= this.y + this.height + deviation  )  }  /**   * 根据手指的位置设置飞机的位置   * 保证手指处于飞机中间   * 同时限定飞机的活动范围限制在屏幕中   */  setAirPosAcrossFingerPosZ(x, y) {    let disX = x - this.width / 2    let disY = y - this.height / 2    if ( disX &lt; 0 )      disX = 0    else if ( disX &gt; screenWidth - this.width )      disX = screenWidth - this.width    if ( disY &lt;= 0 )      disY = 0    else if ( disY &gt; screenHeight - this.height )      disY = screenHeight - this.height    this.x = disX    this.y = disY  }  /**   * 玩家响应手指的触摸事件   * 改变战机的位置   */  initEvent() {    canvas.addEventListener(&#39;touchstart&#39;, ((e) =&gt; {      e.preventDefault()      let x = e.touches[0].clientX      let y = e.touches[0].clientY      //      if ( this.checkIsFingerOnAir(x, y) ) {        this.touched = true        this.setAirPosAcrossFingerPosZ(x, y)      }    }).bind(this))    canvas.addEventListener(&#39;touchmove&#39;, ((e) =&gt; {      e.preventDefault()      let x = e.touches[0].clientX      let y = e.touches[0].clientY      if ( this.touched )        this.setAirPosAcrossFingerPosZ(x, y)    }).bind(this))    canvas.addEventListener(&#39;touchend&#39;, ((e) =&gt; {      e.preventDefault()      this.touched = false    }).bind(this))  }  /**   * 玩家射击操作   * 射击时机由外部决定   */  shoot() {    let bullet = databus.pool.getItemByClass(&#39;bullet&#39;, Bullet)    bullet.init(      this.x + this.width / 2 - bullet.width / 2,      this.y - 10,      10    )    databus.bullets.push(bullet)  }}</code></pre><h3 id="初始化-2"><a href="#初始化-2" class="headerlink" title="初始化"></a>初始化</h3><h4 id="导入相应文件-1"><a href="#导入相应文件-1" class="headerlink" title="导入相应文件"></a>导入相应文件</h4><h4 id="获取屏幕大小作为常量"><a href="#获取屏幕大小作为常量" class="headerlink" title="获取屏幕大小作为常量"></a>获取屏幕大小作为常量</h4><ul><li><a href="获取浏览器视口宽度">Window.innerWidth</a></li></ul><h4 id="创建基本常量"><a href="#创建基本常量" class="headerlink" title="创建基本常量"></a>创建基本常量</h4><h3 id="Player"><a href="#Player" class="headerlink" title="Player"></a>Player</h3><p>玩家类，继承于Spirit类</p><h4 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h4><ul><li>初始化超类</li><li>设置玩家初始位置，位于屏幕底部并且居中（应注意判断位置是判断其左上角位置）</li><li>设定判断是否有触碰的变量和子弹数组</li><li>初始化事件监听函数<ul><li>事件监听相当于是在等待事件的发生，一旦发生就会随之执行的函数</li></ul></li></ul><h4 id="checkIsFingerOnAir-x-y"><a href="#checkIsFingerOnAir-x-y" class="headerlink" title="checkIsFingerOnAir(x, y)"></a>checkIsFingerOnAir(x, y)</h4><p>判断玩家手指是否在飞机上</p><ul><li>deviation变量相当于是扩展玩家手指对飞机控制的范围设定的参数</li><li>判断手指与飞机的关系和位置</li></ul><h4 id="setAirPosAcrossFingerPosZ-x-y"><a href="#setAirPosAcrossFingerPosZ-x-y" class="headerlink" title="setAirPosAcrossFingerPosZ(x, y)"></a>setAirPosAcrossFingerPosZ(x, y)</h4><p>根据手指的位置设置飞机的位置</p><p>保证手指处于飞机中间</p><p>同时限定飞机的活动范围限制在屏幕中</p><h4 id="initEvent"><a href="#initEvent" class="headerlink" title="initEvent()"></a>initEvent()</h4><p>监听函数</p><ul><li>绑定touchstart事件， 即开始触碰事件，并传入一个匿名函数作为回调函数，作为触发该事件时的回调<ul><li>若触碰时触碰的是飞机则将飞机被触碰设置为真并且将飞机中心移动到手指中心</li><li><a href="http://www.w3school.com.cn/jsref/event_preventdefault.asp" target="_blank" rel="noopener">e.preventDefault()</a> 这是取消事件本身的默认动作的函数</li></ul></li><li>绑定touchmove事件，即触碰移动<ul><li>若触碰飞机情况为真，则将飞机移动到相应位置</li></ul></li><li>绑定touchend事件，即触碰结束</li></ul><h4 id="shoot"><a href="#shoot" class="headerlink" title="shoot()"></a>shoot()</h4><p>玩家射击函数</p><ul><li>从对象池中取一个子弹</li><li>根据玩家位置初始化子弹位置</li></ul>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+        </tags>
       
     </entry>
     
     
     
     <entry>
-      <title>Hello World</title>
-      <link href="undefined2019/09/04/hello-world/"/>
-      <url>2019/09/04/hello-world/</url>
+      <title>微信小游戏 demo 飞机大战 代码分析（一）(main.js)</title>
+      <link href="undefined2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%201/"/>
+      <url>2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%201/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<h1 id="微信小游戏-demo-飞机大战-代码分析（一）-main-js"><a href="#微信小游戏-demo-飞机大战-代码分析（一）-main-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（一）(main.js)"></a>微信小游戏 demo 飞机大战 代码分析（一）(main.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951804.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10955093.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</a></p><blockquote><p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p></blockquote><blockquote><p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p></blockquote><h2 id="文件目录"><a href="#文件目录" class="headerlink" title="文件目录"></a>文件目录</h2><p><img src="https://img2018.cnblogs.com/blog/1255423/201905/1255423-20190530113119007-2004372218.png" alt></p><h2 id="game-js"><a href="#game-js" class="headerlink" title="game.js"></a>game.js</h2><ul><li><p>首先让我们来看一下作为入口的game.js，可以看到在这里只进行了main类的初始化，因此下一步我们应该查看一下main类中的函数</p></li><li><p>代码</p><pre><code class="js">import Player     from &#39;./player/index&#39;import Enemy      from &#39;./npc/enemy&#39;import BackGround from &#39;./runtime/background&#39;import GameInfo   from &#39;./runtime/gameinfo&#39;import Music      from &#39;./runtime/music&#39;import DataBus    from &#39;./databus&#39;let ctx   = canvas.getContext(&#39;2d&#39;)let databus = new DataBus()/** * 游戏主函数 */export default class Main {  constructor() {    // 维护当前requestAnimationFrame的id    this.aniId    = 0    //重新生成新的界面    this.restart()  }  //界面生成函数  restart() {    databus.reset()    canvas.removeEventListener(      &#39;touchstart&#39;,      this.touchHandler    )    this.bg       = new BackGround(ctx)    this.player   = new Player(ctx)    this.gameinfo = new GameInfo()    this.music    = new Music()    this.bindLoop     = this.loop.bind(this)    this.hasEventBind = false    // 清除上一局的动画    window.cancelAnimationFrame(this.aniId);    this.aniId = window.requestAnimationFrame(      this.bindLoop,      canvas    )  }  /**   * 随着帧数变化的敌机生成逻辑   * 帧数取模定义成生成的频率   */  enemyGenerate() {    if ( databus.frame % 30 === 0 ) {      let enemy = databus.pool.getItemByClass(&#39;enemy&#39;, Enemy)      enemy.init(6)      databus.enemys.push(enemy)    }  }  // 全局碰撞检测  collisionDetection() {    let that = this    databus.bullets.forEach((bullet) =&gt; {      for ( let i = 0, il = databus.enemys.length; i &lt; il;i++ ) {        let enemy = databus.enemys[i]        if ( !enemy.isPlaying &amp;&amp; enemy.isCollideWith(bullet) ) {          enemy.playAnimation()          that.music.playExplosion()          bullet.visible = false          databus.score  += 1          break        }      }    })    for ( let i = 0, il = databus.enemys.length; i &lt; il;i++ ) {      let enemy = databus.enemys[i]      if ( this.player.isCollideWith(enemy) ) {        databus.gameOver = true        break      }    }  }  // 游戏结束后的触摸事件处理逻辑  touchEventHandler(e) {     e.preventDefault()    let x = e.touches[0].clientX    let y = e.touches[0].clientY    let area = this.gameinfo.btnArea    if (   x &gt;= area.startX        &amp;&amp; x &lt;= area.endX        &amp;&amp; y &gt;= area.startY        &amp;&amp; y &lt;= area.endY  )      this.restart()  }  /**   * canvas重绘函数   * 每一帧重新绘制所有的需要展示的元素   */  render() {    ctx.clearRect(0, 0, canvas.width, canvas.height)    this.bg.render(ctx)    databus.bullets          .concat(databus.enemys)          .forEach((item) =&gt; {              item.drawToCanvas(ctx)            })    this.player.drawToCanvas(ctx)    databus.animations.forEach((ani) =&gt; {      if ( ani.isPlaying ) {        ani.aniRender(ctx)      }    })    this.gameinfo.renderGameScore(ctx, databus.score)    // 游戏结束停止帧循环    if ( databus.gameOver ) {      this.gameinfo.renderGameOver(ctx, databus.score)      if ( !this.hasEventBind ) {        this.hasEventBind = true        this.touchHandler = this.touchEventHandler.bind(this)        canvas.addEventListener(&#39;touchstart&#39;, this.touchHandler)      }    }  }  // 游戏逻辑更新主函数  update() {    if ( databus.gameOver )      return;    this.bg.update()    databus.bullets           .concat(databus.enemys)           .forEach((item) =&gt; {              item.update()            })    this.enemyGenerate()    this.collisionDetection()    if ( databus.frame % 20 === 0 ) {      this.player.shoot()      this.music.playShoot()    }  }  // 实现游戏帧循环  loop() {    databus.frame++    this.update()    this.render()    this.aniId = window.requestAnimationFrame(      this.bindLoop,      canvas    )  }}</code></pre></li></ul><h2 id="一点基础知识"><a href="#一点基础知识" class="headerlink" title="一点基础知识"></a>一点基础知识</h2><ul><li>帧：游戏中的帧和动画中的帧，视频中的帧概念类似，即游戏过程中物体和动画效果变化的一个周期。</li><li>精灵：是游戏中的一个基本概念，指的是在游戏中的一个基本物体或动画或贴图，如NPC或者敌人，在本例中有子弹，敌机和玩家</li><li>回调函数：在特定事件发生后，由事件方进行调用的函数</li><li>画布：顾名思义就是使用了画东西的地方，其实就是用于渲染相关内容的位置</li></ul><h2 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h2><p>main 即为游戏的主函数，我们来逐个分析一下其内容</p><ul><li>export default 为 ES6，即js的一个版本中的语言，在js中，任何类或对象使用export既可以在其他文件中通过import进行调用使用，使用 import {类或对象名} from 文件路径，但若使用export default则可以省略 { }， 但一份文件中仅仅可以存在一个export default</li></ul><h3 id="初始化生成对象"><a href="#初始化生成对象" class="headerlink" title="初始化生成对象"></a>初始化生成对象</h3><ol><li><p>在main函数前其调用生成了一个2d画布，名称为ctx</p></li><li><p>生成了一个数据总线对象databus，数据总线的内容将在下次博客中解释</p></li></ol><h3 id="main-类"><a href="#main-类" class="headerlink" title="main 类"></a>main 类</h3><h4 id="contructor"><a href="#contructor" class="headerlink" title="contructor()"></a>contructor()</h4><p>contructor 用于创建main 对象，其中调用了restart函数，因此我们跳转到restart函数中进行查看</p><h4 id="restart"><a href="#restart" class="headerlink" title="restart()"></a>restart()</h4><p>该函数用于重新生成一个界面</p><ul><li><p>首先重置数据总线对象的内容</p></li><li><p>监听触碰事件</p></li><li><p>初始化背景对象，玩家对象，游戏信息对象和音乐对象</p><pre><code class="js">this.bg       = new BackGround(ctx)this.player   = new Player(ctx)this.gameinfo = new GameInfo()this.music    = new Music()</code></pre></li></ul><ul><li><p>绑定事件循环，初始化状态，并开始运行</p><pre><code class="js">this.bindLoop     = this.loop.bind(this)    this.hasEventBind = false    // 清除上一局的动画    window.cancelAnimationFrame(this.aniId);    this.aniId = window.requestAnimationFrame(      this.bindLoop,      canvas    )</code></pre></li><li><p>js语法中，可以将某个对象的方法单独拿出来作为一个方法使用，但是在使用过程中，避免不了出现未知该函数所指向的对象的情况</p><ul><li>例如在该代码中，若写作<code>this.bindLoop = this.loop</code>  那么该函数所属的类就丢失了，那么该函数一些执行也就无法进行</li><li>为了避免这样的情况，js使用bind函数，将所需的类绑定到该函数上，这样就有效地解决了这个问题</li></ul></li><li><p><code>window.requestAnimationFrame()</code></p><ul><li>该函数使用了两个参数，第一个是回调函数，第二个是画布</li><li>画布的功能即用来工作的区域</li><li>而回调函数的作用是在浏览器在该帧渲染完毕之后，调用的函数，根据博主的资料查询，回调函数执行次数通常是每秒60次，但在大多数遵循W3C建议的浏览器中，回调函数执行次数通常与浏览器屏幕刷新次数相匹配。</li><li>在该例子中，restart中的该函数仅仅是使用初始化的main对象更新loop函数，并将其作为刷新内容</li><li>但由于main对象中的逻辑会产生变更，因此在之后的loop函数也对其进行了请求，并绑定了参数。使用新缠身过的main对象和新产生的canvas在浏览器中进行渲染</li></ul></li></ul><h4 id="enemyGenerate"><a href="#enemyGenerate" class="headerlink" title="enemyGenerate()"></a>enemyGenerate()</h4><p>该函数用于生成敌人飞机</p><ul><li>在databus中有一个frame参数，相当于每次刷新（更新）的计数器，</li><li>使用该函数时，若刷新次数为30的整数倍时，就会申请一个新的敌机对象并初始化，其中init的参数为该敌机的速度，生成后加入databus对象的存储数组中</li></ul><h4 id="collisionDetection（）"><a href="#collisionDetection（）" class="headerlink" title="collisionDetection（）"></a>collisionDetection（）</h4><p>全局碰撞检测</p><ul><li>首先对于每个子弹，判断子弹是否与敌机相撞，若相撞则隐藏敌机和子弹<ul><li>该处需要解释一下的是，将子弹和敌机隐藏的是直接代表子弹和敌机已经销毁</li><li>但此处并未在逻辑中将对象销毁，而是在绘图中判断其visible是否为true，若为true则才会画入画布中</li><li>而统一更新回收入pool</li></ul></li><li>对每一架敌机，判断是否与用户相撞，若相撞，则在databus中设置游戏结束</li></ul><h4 id="touchEventHandler-e"><a href="#touchEventHandler-e" class="headerlink" title="touchEventHandler(e)"></a>touchEventHandler(e)</h4><p>游戏结束后判断是否重新开始的函数</p><ul><li>获取触摸的坐标</li><li>在gameinfo中获取重新开始上下左右xy坐标</li><li>比对触摸位置是否在按钮内部，若在则调用restart函数重新启动函数</li></ul><h4 id="render"><a href="#render" class="headerlink" title="render()"></a>render()</h4><p>渲染函数，用于渲染场景，用于每次修改内容后重新渲染场景内容（每一帧调用）</p><ul><li>清除画布的所有内容</li><li>调用背景类的渲染函数，在ctx上渲染出一个背景</li><li>concat函数为js函数，用于连接连个数组</li><li>连接databus中的bullets和enemys数组，并且将这个合成数组中的每一项画到画布上，画到画布上的操作是以利用函数drawToCanvas，而该函数实现于Spirite类中，</li><li>spirit即精灵，是游戏设计中的一个概念，相当于游戏中一个最基本的物体或者一个概念，该demo中的spirit实现方式将在后续博客中写上</li><li>将player画到画布上，同样的，player也继承于Spirit类</li><li>将所有动画类的未播放的内容进行播放，在该demo中，Animation类继承Spirit，而所有物体均继承于Animation类，因此都具有该能力，不过由于所有物体都均仅有一帧图像，因此无需进行播放，</li><li>在databus类中有一个专门存放动画的数组，任何继承于Animation类的对象都会在初始化构造时被放入该数组当中</li><li>调用gameinfo的函数更新图像左上角的分数内容</li><li>判断，若游戏结束<ul><li>若未绑定事件，将touchHandler事件添加绑定，</li><li>将事件加入监听中</li><li>（该段代码博主并未非常理解，欢迎在评论中指正或指导）</li></ul></li></ul><h4 id="update"><a href="#update" class="headerlink" title="update()"></a>update()</h4><p>游戏逻辑更新主函数</p><ul><li>若游戏已经结束，不执行该代码，直接放回结束</li><li>更新背景参数</li><li>对所有bullets和enemys对象进行更新</li><li>调用enemyGenerate() 生成敌人（根据前面描述，需要判断是否满足刚好经过30帧）</li><li>进行全局碰撞检测，并进行处理</li><li>判断是否经过20帧，每经过20帧，调用player生成一个新的bullet（子弹），并且调用射击音乐</li></ul><h4 id="loop"><a href="#loop" class="headerlink" title="loop()"></a>loop()</h4><p>实现游戏帧循环</p><ul><li>每次循环将帧计数器加一</li><li>更新逻辑</li><li>渲染逻辑更新后的场景</li><li>使用<code>window.requestAnimationFrame</code>进行调用，为下一帧界面渲染做准备</li></ul>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</title>
+      <link href="undefined2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%203(spirit.js,%20animation.js)/"/>
+      <url>2019/09/10/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%20demo%20%E9%A3%9E%E6%9C%BA%E5%A4%A7%E6%88%98%20%E4%BB%A3%E7%A0%81%E5%88%86%E6%9E%90%203(spirit.js,%20animation.js)/</url>
+      
+        <content type="html"><![CDATA[<h1 id="微信小游戏-demo-飞机大战-代码分析（三）-spirit-js-animation-js"><a href="#微信小游戏-demo-飞机大战-代码分析（三）-spirit-js-animation-js" class="headerlink" title="微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)"></a>微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</h1><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10948630.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10951278.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</a></p><p><a href="https://www.cnblogs.com/Phoenix-blog/p/10955093.html" target="_blank" rel="noopener">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</a></p><blockquote><p>本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正</p></blockquote><blockquote><p>本文的代码均由微信小游戏自动生成的demo飞机大战中获取</p></blockquote><h2 id="spirit-js"><a href="#spirit-js" class="headerlink" title="spirit.js"></a>spirit.js</h2><p>游戏基础的精灵类</p><p>代码</p><pre><code>/** * 游戏基础的精灵类 */export default class Sprite {  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {    this.img     = new Image()    this.img.src = imgSrc    this.width  = width    this.height = height    this.x = x    this.y = y    this.visible = true  }  /**   * 将精灵图绘制在canvas上   */  drawToCanvas(ctx) {    if ( !this.visible )      return    ctx.drawImage(      this.img,      this.x,      this.y,      this.width,      this.height    )  }  /**   * 简单的碰撞检测定义：   * 另一个精灵的中心点处于本精灵所在的矩形内即可   * @param{Sprite} sp: Sptite的实例   */  isCollideWith(sp) {    let spX = sp.x + sp.width / 2    let spY = sp.y + sp.height / 2    if ( !this.visible || !sp.visible )      return false    return !!(   spX &gt;= this.x              &amp;&amp; spX &lt;= this.x + this.width              &amp;&amp; spY &gt;= this.y              &amp;&amp; spY &lt;= this.y + this.height  )  }}</code></pre><h3 id="Spirite类"><a href="#Spirite类" class="headerlink" title="Spirite类"></a>Spirite类</h3><h4 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h4><p>构造器</p><ul><li>根据输入图片路径，高度，宽度，初始坐标（x,y)生成一个精灵<ul><li>这里的x,y 是指图片的左上角坐标</li><li>应注意的一点是此处所有参数均有缺省值</li></ul></li><li>初始visible设置为true，即可见</li></ul><h4 id="drawToCanvas-ctx"><a href="#drawToCanvas-ctx" class="headerlink" title="drawToCanvas(ctx)"></a>drawToCanvas(ctx)</h4><p>将精灵画于画布上</p><ul><li>如果不可见，那么不画到画布上</li><li>如果可见，根据该精灵的x，y坐标</li></ul><h4 id="isCollideWith-sp"><a href="#isCollideWith-sp" class="headerlink" title="isCollideWith(sp)"></a>isCollideWith(sp)</h4><ul><li>根据传入物体的左上角的坐标和大小计算中心坐标</li><li>若两个物体中任意一个不可见，则无需计算，直接返回失败</li><li>判断传入物体的中心坐标有没有在该物体的方框之内</li></ul><h2 id="animation-js"><a href="#animation-js" class="headerlink" title="animation.js"></a>animation.js</h2><p>动画类所在文件</p><p>代码</p><pre><code class="js">import Sprite  from &#39;./sprite&#39;import DataBus from &#39;../databus&#39;let databus = new DataBus()const __ = {  timer: Symbol(&#39;timer&#39;),}/** * 简易的帧动画类实现 */export default class Animation extends Sprite {  constructor(imgSrc, width, height) {    super(imgSrc, width, height)    // 当前动画是否播放中    this.isPlaying = false    // 动画是否需要循环播放    this.loop = false    // 每一帧的时间间隔    this.interval = 1000 / 60    // 帧定时器    this[__.timer] = null    // 当前播放的帧    this.index = -1    // 总帧数    this.count = 0    // 帧图片集合    this.imgList = []    /**     * 推入到全局动画池里面     * 便于全局绘图的时候遍历和绘制当前动画帧     */    databus.animations.push(this)  }  /**   * 初始化帧动画的所有帧   * 为了简单，只支持一个帧动画   */  initFrames(imgList) {    imgList.forEach((imgSrc) =&gt; {      let img = new Image()      img.src = imgSrc      this.imgList.push(img)    })    this.count = imgList.length  }  // 将播放中的帧绘制到canvas上  aniRender(ctx) {    ctx.drawImage(      this.imgList[this.index],      this.x,      this.y,      this.width  * 1.2,      this.height * 1.2    )  }  // 播放预定的帧动画  playAnimation(index = 0, loop = false) {    // 动画播放的时候精灵图不再展示，播放帧动画的具体帧    this.visible   = false    this.isPlaying = true    this.loop      = loop    this.index     = index    if ( this.interval &gt; 0 &amp;&amp; this.count ) {      this[__.timer] = setInterval(        this.frameLoop.bind(this),        this.interval      )    }  }  // 停止帧动画播放  stop() {    this.isPlaying = false    if ( this[__.timer] )      clearInterval(this[__.timer])  }  // 帧遍历  frameLoop() {    this.index++    if ( this.index &gt; this.count - 1 ) {      if ( this.loop ) {        this.index = 0      }      else {        this.index--        this.stop()      }    }  }}</code></pre><h3 id="准备内容"><a href="#准备内容" class="headerlink" title="准备内容"></a>准备内容</h3><ul><li>引入Spirit类和DataBus类</li><li>生成一个databus对象</li><li>确定一个Symbol对象</li></ul><h3 id="Animation类"><a href="#Animation类" class="headerlink" title="Animation类"></a>Animation类</h3><p>继承于Sprite类</p><h4 id="constructor"><a href="#constructor" class="headerlink" title="constructor"></a>constructor</h4><p>构造器</p><ul><li>先用图片路径和宽度高度初始化超类（spirit类）</li><li>一些基本的动画设置参数，如备注所述作用</li></ul><h4 id="initFrames-imgList"><a href="#initFrames-imgList" class="headerlink" title="initFrames(imgList)"></a>initFrames(imgList)</h4><p>初始化帧动画的所有帧</p><ul><li>对传入参数imgList进行遍历<ul><li>forEach是对js中对数组遍历的一种方式</li><li>=&gt;是匿名函数的语法</li></ul></li></ul><h4 id="aniRender（ctx"><a href="#aniRender（ctx" class="headerlink" title="aniRender（ctx)"></a>aniRender（ctx)</h4><p>把播放中的帧画到画布上</p><ul><li>通过调用drawImage画上动画在该时刻应该有的图像</li><li>该函数在main.js中的render中有调用</li></ul><h4 id="playAnimation-index-0-loop-false"><a href="#playAnimation-index-0-loop-false" class="headerlink" title="playAnimation(index = 0, loop = false)"></a>playAnimation(index = 0, loop = false)</h4><ul><li>将精灵图的可见设为false<ul><li>在本例子中有一个敌机被击毁，发生了敌机爆炸，展示爆炸的动画</li></ul></li><li>设置正在播放</li><li>将是否循环的情况设置为初始设置的（初始设置为不循环）</li><li>判断是否有动画切换间隔和帧数<ul><li>有的话设置定时器，使用函数setInterval</li><li>setInterval函数 <ul><li>第一个参数是回调函数，是在这个过程中不断调用的函数</li><li>第二个参数是间隔</li><li>整个函数的含义就是在该间隔内不断调用传入的回调函数</li><li>（博主猜测一般情况来说主函数中的图像切换频率大于该间隔，这样才能体现动画的变化）</li></ul></li></ul></li></ul><h4 id="stop"><a href="#stop" class="headerlink" title="stop()"></a>stop()</h4><p>停止帧动画播放</p><ul><li>将播放设置为false</li><li>清除原本设置的定时器</li></ul><h4 id="frameLoop"><a href="#frameLoop" class="headerlink" title="frameLoop()"></a>frameLoop()</h4><p>帧遍历</p><ul><li>帧计数变量index加加</li><li>若帧数大于图片数-1（由于计数从0开始）<ul><li>如果要求循环，将index置0</li><li>否则将index–，即设置为最后一张图片，并且调用stop（）函数暂停</li></ul></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Docker 入坑教程笔记</title>
+      <link href="undefined2019/09/05/Docker%20%E5%85%A5%E5%9D%91%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/09/05/Docker%20%E5%85%A5%E5%9D%91%E6%95%99%E7%A8%8B%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Docker-入坑教程笔记"><a href="#Docker-入坑教程笔记" class="headerlink" title="Docker 入坑教程笔记"></a>Docker 入坑教程笔记</h1><blockquote><p>视频网址B站：<a href="https://www.bilibili.com/video/av17854410/?p=1" target="_blank" rel="noopener">点这里</a></p></blockquote><blockquote><p>查询命令 man</p></blockquote><h2 id="docker-简单启动和退出"><a href="#docker-简单启动和退出" class="headerlink" title="docker 简单启动和退出"></a>docker 简单启动和退出</h2><ul><li><code>docker run --name [容器名] -i -t ubuntu  /bin/bash</code>  交互启动虚拟机</li><li><code>-t</code> 提供伪tty终端</li><li><code>docker ps [-a][-l]</code></li><li><code>docker inspect [container name or id]</code> 配置信息，有用数据</li><li><code>docker start [-i]</code> 重新启动停止容器</li><li><code>exit</code> 退出</li></ul><h2 id="docker-守护式进程启动"><a href="#docker-守护式进程启动" class="headerlink" title="docker 守护式进程启动"></a>docker 守护式进程启动</h2><h3 id="启"><a href="#启" class="headerlink" title="启"></a>启</h3><ul><li><code>ctrl + P ctrl + Q</code>  交互式运行<ul><li><code>ps</code> 不加a可以看到正在运行的容器</li></ul></li></ul><h3 id="docker-查看情况"><a href="#docker-查看情况" class="headerlink" title="docker 查看情况"></a>docker 查看情况</h3><ul><li><p><code>docker run -d</code> 启动一个守护式容器</p></li><li><p><code>docker logs [容器名] -tf</code>  t是显示实践 f是显示日志 –tail 选取一定最后数量日志</p></li><li><p><code>docker top [容器名]</code> 查看容器中的进程数量</p></li><li><p><code>docker exec [-d] [-i] [-t] 容器名 [COMMAND]</code>     启动一个容器进程</p></li></ul><h3 id="停止守护式容器"><a href="#停止守护式容器" class="headerlink" title="停止守护式容器"></a>停止守护式容器</h3><ul><li><code>docker stop</code> 发出停止信号</li><li><code>docker kill</code> 直接停止</li></ul><h2 id="容器部署网站所需命令"><a href="#容器部署网站所需命令" class="headerlink" title="容器部署网站所需命令"></a>容器部署网站所需命令</h2><h3 id="容器端口映射设置"><a href="#容器端口映射设置" class="headerlink" title="容器端口映射设置"></a>容器端口映射设置</h3><ul><li><code>run [-P] [-p]</code> 端口  大写P会全部映射，小写p指定映射</li><li><code>docker run -p hostPort:containerPort</code></li></ul><h2 id="本地与远程镜像"><a href="#本地与远程镜像" class="headerlink" title="本地与远程镜像"></a>本地与远程镜像</h2><h3 id="docker信息"><a href="#docker信息" class="headerlink" title="docker信息"></a>docker信息</h3><ul><li><code>docker info</code></li></ul><h3 id="本地镜像操作"><a href="#本地镜像操作" class="headerlink" title="本地镜像操作"></a>本地镜像操作</h3><ul><li><p><code>docker images</code> </p><ul><li>REPOSITORY 仓库   和 REGISTRY(存储位置) 不一样</li><li>TAG    REPOSITORY + TAG行成一个完整的镜像</li></ul></li><li><p><code>docker inspect CONTANINER|IMAGE</code> 查看容器|镜像 的详细信息</p></li><li><p><code>docker rmi IMAGE</code>  删除镜像 镜像用 完整镜像名 REPOSITORY:TAG</p><ul><li>使用id删除可以删除所有相同的镜像</li></ul></li></ul><h3 id="镜像获取和推送"><a href="#镜像获取和推送" class="headerlink" title="镜像获取和推送"></a>镜像获取和推送</h3><ul><li>查找镜像<ul><li>[Docker Hub][<a href="https://hub.docker.com/]" target="_blank" rel="noopener">https://hub.docker.com/]</a></li><li>docker search TERM <ul><li>docker search -s 3 ubuntu 搜索星级3星以上的镜像</li></ul></li></ul></li><li>拉取镜像<ul><li>docker pull REPOSITORY:TAG </li><li>–registry-mirror=</li><li><a href="http://www.daocloud.io" target="_blank" rel="noopener">http://www.daocloud.io</a></li></ul></li><li>推送镜像<ul><li>docker push 本地镜像名</li><li>需要有相关账户</li></ul></li></ul><h2 id="镜像构建"><a href="#镜像构建" class="headerlink" title="镜像构建"></a>镜像构建</h2><h3 id="镜像提交"><a href="#镜像提交" class="headerlink" title="镜像提交"></a>镜像提交</h3><pre><code class="c++">docker commit container名称 image名称 (仓库/镜像名)-a 填写作者信息-m 镜像信息</code></pre><p>之后便可以直接用该镜像运行容器</p><h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><h4 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h4><pre><code>#First DockerfileFROM ubuntu:14.04MAINTAINNER 容器名 作者信息命令</code></pre><h4 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h4><pre><code>docker build [OPTION] PATH | URL | --t, --tag=&quot;&quot; </code></pre><h2 id="Docker-C-S模式"><a href="#Docker-C-S模式" class="headerlink" title="Docker C/S模式"></a>Docker C/S模式</h2><h3 id="Remote-API"><a href="#Remote-API" class="headerlink" title="Remote API"></a>Remote API</h3><p>可以直接访问docker守护式进程</p><h3 id="连接方式"><a href="#连接方式" class="headerlink" title="连接方式"></a>连接方式</h3><p>unix </p><p>tcp</p><p>fd</p><p> 6</p><h2 id="Docker-File-语法详解"><a href="#Docker-File-语法详解" class="headerlink" title="Docker File 语法详解"></a>Docker File 语法详解</h2><h2 id="Docker-File-构建过程"><a href="#Docker-File-构建过程" class="headerlink" title="Docker File 构建过程"></a>Docker File 构建过程</h2><ul><li>从基础镜像运行一个指令</li><li>执行一条指令，对容器进行修改</li><li>执行类似于docker commit的操作，提交一个新的镜像层</li><li>再基于刚提交的镜像运行一个新容器</li><li>执行Dockerfile 中的下一条指令，直至所有指令执行完毕</li></ul><blockquote><p>docker 并未删除中间层容器，仅仅删除中间层镜像，可以使用run运行中间层镜像</p></blockquote><h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><h4 id="本机文件复制到docker"><a href="#本机文件复制到docker" class="headerlink" title="本机文件复制到docker"></a>本机文件复制到docker</h4><pre><code>docker cp /opt/software/temp/test/test.txt 688e83c55129:/test/</code></pre><p>可以复制文件或文件夹</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> docker 服务器 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小程序js学习心得体会</title>
+      <link href="undefined2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
+      <url>2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/</url>
+      
+        <content type="html"><![CDATA[<h1 id="微信小程序js学习心得体会"><a href="#微信小程序js学习心得体会" class="headerlink" title="微信小程序js学习心得体会"></a>微信小程序js学习心得体会</h1><h3 id="页面控制的bindtap和catchtap"><a href="#页面控制的bindtap和catchtap" class="headerlink" title="页面控制的bindtap和catchtap"></a>页面控制的bindtap和catchtap</h3><blockquote><p>用法，区别</p></blockquote><pre><code class="html">&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;</code></pre><pre><code class="js">tabMessage: function(e){    console.log(e.target.id);    console.log(e.target.dataset);    console.log(e.target.dataset.userdate);  },</code></pre><ul><li>可以获取的数据<ul><li>id</li><li>设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写</li></ul></li><li>bindtap 与 catchtap的是否冒泡的区别<ul><li>bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会</li><li>catchtap可以中断冒泡事件</li><li>任何控件都可以添加该事件</li><li>因此通常会在最外层使用一个view作为总控件，添加一个bindtap执行如全局刷新等功能</li></ul></li></ul><h2 id="setData"><a href="#setData" class="headerlink" title="setData"></a>setData</h2><p>对于小程序中存在js中data的初始数据，假设如下</p><pre><code class="js">data: {    count: 1,    weeek: 1  },      view1: function(e){          this.setData({              count: 2          })      }</code></pre><p>在这个js中，如果执行view1函数，则data数据只有count会改变，而week不会改变，不会受到影响。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>LeetCode-环形链表II</title>
+      <link href="undefined2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/"/>
+      <url>2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/</url>
+      
+        <content type="html"><![CDATA[<p>LeetCode-环形链表II</p><p>为找到入口点可以用以下方法</p><ol><li>使用快慢指针法直到两个指针相遇</li><li>头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点</li></ol><p>设 起点为A ，入口点为B，快慢指针相遇点为C</p><p>AB = n, BC = k，环长为m</p><p>因此快慢指针相遇时，快慢指针走过长度<br>$$<br>快： n+a<em>m+k \<br>慢： n+b<em>m+k<br>$$<br>因此有等式<br>$$<br>n+a</em>m+k = 2</em>(n+b<em>m+k)<br>$$<br>化简后得到<br>$$<br>n+k = (a-2b)</em>m —{1}<br>$$<br>由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此<br>$$<br>慢指针新长度：n+b<em>m+k<br>$$<br>带入1式子得到<br>$$<br>n+b</em>m+k \<br>= (a-b)*m+n<br>$$<br>显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Mevan 使用体验</title>
+      <link href="undefined2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
+      <url>2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Mevan-使用体验"><a href="#Mevan-使用体验" class="headerlink" title="Mevan 使用体验"></a>Mevan 使用体验</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Mevan </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu下深度学习环境坑点记录</title>
+      <link href="undefined2019/09/05/Ubuntu%E4%B8%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E5%9D%91%E7%82%B9%E8%AE%B0%E5%BD%95/"/>
+      <url>2019/09/05/Ubuntu%E4%B8%8B%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E5%9D%91%E7%82%B9%E8%AE%B0%E5%BD%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Ubuntu下深度学习环境坑点记录"><a href="#Ubuntu下深度学习环境坑点记录" class="headerlink" title="Ubuntu下深度学习环境坑点记录"></a>Ubuntu下深度学习环境坑点记录</h1><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>参照<a href="https://blog.csdn.net/xiangxianghehe/article/details/81216424" target="_blank" rel="noopener">博客</a></p><h1 id="出现的错误"><a href="#出现的错误" class="headerlink" title="出现的错误"></a>出现的错误</h1><h2 id="无法找到CUDA"><a href="#无法找到CUDA" class="headerlink" title="无法找到CUDA"></a>无法找到CUDA</h2><blockquote><p>error=38 : no CUDA-capable device is detected</p></blockquote><ol><li>若保证你的机器上有CUDA</li><li>那么一定是你选择的GPU错误</li><li>机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行</li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> ubuntu 深度学习 GPU </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>python3 与 python2下virtualenv的使用</title>
+      <link href="undefined2019/09/05/python3%20%E4%B8%8Epython2%20%E4%B8%8Bvirtualenv%20%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+      <url>2019/09/05/python3%20%E4%B8%8Epython2%20%E4%B8%8Bvirtualenv%20%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<h1 id="python3-与python2-下virtualenv-的使用"><a href="#python3-与python2-下virtualenv-的使用" class="headerlink" title="python3 与python2 下virtualenv 的使用"></a>python3 与python2 下virtualenv 的使用</h1><p>当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为</p><pre><code>virtualenv -p python3 env</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> python3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>centos下nginx的部署配置</title>
+      <link href="undefined2019/09/05/centos%E4%B8%8Bnginx%E7%9A%84%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE/"/>
+      <url>2019/09/05/centos%E4%B8%8Bnginx%E7%9A%84%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="centos下nginx的部署配置"><a href="#centos下nginx的部署配置" class="headerlink" title="centos下nginx的部署配置"></a>centos下nginx的部署配置</h1><p>服务设置</p><p>service nginx restart</p><h2 id="git-账户密码"><a href="#git-账户密码" class="headerlink" title="git 账户密码"></a>git 账户密码</h2><p>如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。</p><p>解决办法：</p><p>git bash进入你的项目目录，输入：</p><p>git config –global credential.helper store</p><p>然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。</p><p>然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。</p><h1 id="linux-后台运行"><a href="#linux-后台运行" class="headerlink" title="linux 后台运行"></a>linux 后台运行</h1><p>nohup  command &gt; log.log  2&gt;&amp;1</p><p>2 &gt; &amp; 1指将错误输出输入到标准输出中</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 服务器 centos </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解压错误</title>
+      <link href="undefined2019/09/05/%E8%A7%A3%E5%8E%8B%E9%94%99%E8%AF%AF/"/>
+      <url>2019/09/05/%E8%A7%A3%E5%8E%8B%E9%94%99%E8%AF%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解压错误"><a href="#解压错误" class="headerlink" title="解压错误"></a>解压错误</h1><blockquote><p>gzip: stdin: not in gzip format  　　</p></blockquote><blockquote><p>tar: Child returned status 1  </p></blockquote><blockquote><p>tar: Error is not recoverable: exiting now</p></blockquote><p><img src="/2019/09/05/解压错误/wget_q1.png" alt></p><p>在解压时出现了这样的错误，为了知道为什么会发生这样的错误，笔者在网上查阅了相关资料，根据了解大概确定了问题应该是安装包出现了问题</p><p>下载这个安装包用的这个命令</p><p><img src="/2019/09/05/解压错误/wget_q2.png" alt></p><p>使用</p><p><code>ls -lht</code> </p><p>命令查看内容</p><p>发现安装包只有5.2k</p><p>使用linux file命令查询</p><p><img src="/2019/09/05/解压错误/wget_q3.png" alt></p><p>发现竟然是html页面</p><p>这是因为原先使用的下载链接指向的是一个html页面，而浏览器解析后会得到一个下载链接，应该获取这个下载链接才可以正常使用wget去下载</p><p>因此重新下载后成功</p><p><img src="/2019/09/05/解压错误/wget_q.png" alt="img"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> linux 解压 tar </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网络流学习笔记</title>
+      <link href="undefined2019/09/05/#%20%E7%BD%91%E7%BB%9C%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/09/05/#%20%E7%BD%91%E7%BB%9C%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="网络流学习笔记"><a href="#网络流学习笔记" class="headerlink" title="网络流学习笔记"></a>网络流学习笔记</h1><h3 id="第一天：-实现最基础网络流算法"><a href="#第一天：-实现最基础网络流算法" class="headerlink" title="第一天： 实现最基础网络流算法"></a>第一天： 实现最基础网络流算法</h3><h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="C++">#include &lt;iostream&gt;#include &lt;algorithm&gt;#include &lt;queue&gt;#include &lt;memory.h&gt; using namespace std;const int MAXN = 100;const int MAXM = MAXN*MAXN;const int INF = 0x3f3f3f3f;int head[MAXN], Next[MAXM], ver[MAXM], edge[MAXM], flow[MAXM];int tot;void init(){    tot = 0;    memset(head, 0, sizeof(head));}void add(int x, int y, int z, int f){    Next[++tot] = head[x];    head[x] = tot;    ver[tot] = y;    edge[tot] = z;    flow[tot] = f;}void add2(int x, int y, int z){    add(x, y, z, 0);    add(y, x, z, z);}int ss, tt, res[MAXN], pre[MAXN], v[MAXN], pre_index;int bfs(){    int x = ss;    queue &lt;int&gt; q;    while(!q.empty()) q.pop();    memset(pre, 0, sizeof(pre));    memset(res, 0, sizeof(res));    memset(v, 0, sizeof(v));    pre_index = 0;    res[x] = INF;    q.push(x);    v[x] = 1;    int c = 0;    while(!q.empty()){        x = q.front(); q.pop();        for(int i = head[x]; i; i = Next[i]){            int y = ver[i], z = edge[i], f = flow[i];            //cout &lt;&lt; y &lt;&lt;&quot;flow&quot;&lt;&lt;f&lt;&lt;endl;            int fr = z-f;            //可流判断            if(fr &gt; 0){                if(v[y]) continue;                c++;                cout &lt;&lt; c &lt;&lt; x &lt;&lt; &quot;-&gt;&quot; &lt;&lt; y &lt;&lt; &quot;:&quot; &lt;&lt; fr &lt;&lt; endl;                 int t = min(res[x], fr);                res[x]-=t;                res[y]+=t;                q.push(y);                v[y] = 1;                pre[pre_index++] = i;                if(y == tt){                    return t;                }            }        }    }    return 0;}int EK(){    int f = 0, ans = 0;    while(1){        cout &lt;&lt; f &lt;&lt; endl;        for(int i = 0; i &lt; pre_index; i++){            //cout &lt;&lt; &quot;iii&quot; &lt;&lt; pre[i] &lt;&lt; endl;            flow[pre[i]] += f;            flow[pre[i]%2?pre[i]-1:pre[i]+1] -= f;        }        ans+=f;        f = bfs();        if(f == 0) break;    }    return ans;}int main(){    //输入n点m边    //节点编号从1开始    int n, m;    cin &gt;&gt; n &gt;&gt; m;    cin &gt;&gt; ss &gt;&gt; tt;    init();    for(int i = 1; i &lt;= m; i++){        int a, b, z, f;        cin &gt;&gt; a &gt;&gt; b &gt;&gt; z;        add2(a, b, z);    }    cout &lt;&lt; EK() &lt;&lt; endl;}/*6 81 41 6 26 5 15 4 33 4 21 4 32 3 11 2 21 3 2*/ </code></pre><h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="死循环"><a href="#死循环" class="headerlink" title="死循环"></a>死循环</h5><ol><li>邻接表的终止值是0还是-1需要考虑清楚</li></ol><h5 id="bfs搜索错误"><a href="#bfs搜索错误" class="headerlink" title="bfs搜索错误"></a>bfs搜索错误</h5><ol><li>由于可能出现环，需要标记进入队列的点，借用spaf算法的标记方式，保证不因为环而死循环</li></ol>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Django 2.1 学习笔记</title>
+      <link href="undefined2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Django-2-1-学习笔记"><a href="#Django-2-1-学习笔记" class="headerlink" title="Django 2.1 学习笔记"></a>Django 2.1 学习笔记</h1><h3 id="静态Html管理"><a href="#静态Html管理" class="headerlink" title="静态Html管理"></a>静态Html管理</h3><h4 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h4><ol><li>templates都默认在templates文件夹下</li><li>如果需要新增模块，可以在该文件夹下新增相同名字的文件夹</li></ol><h3 id="HTTP-模块"><a href="#HTTP-模块" class="headerlink" title="HTTP 模块"></a>HTTP 模块</h3><h4 id="HttpResponseRedirect"><a href="#HttpResponseRedirect" class="headerlink" title="HttpResponseRedirect"></a>HttpResponseRedirect</h4><ul><li>设原网址为  127.0.0.1/user/Lab</li><li>如果参数为 <strong>‘/user’</strong>, 跳转到   <strong>127.0.0.1/user</strong>   &lt;绝对路径&gt;</li><li>如果参数为 <strong>‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user</strong>  &lt;相对路径&gt;</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 命令行学习</title>
+      <link href="undefined2019/09/05/Linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/"/>
+      <url>2019/09/05/Linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%AD%A6%E4%B9%A0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-命令行学习"><a href="#Linux-命令行学习" class="headerlink" title="Linux 命令行学习"></a>Linux 命令行学习</h1><ul><li>ps -ef</li><li>curl [网址] 显示html内容</li></ul><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="例子，-修改java环境变量"><a href="#例子，-修改java环境变量" class="headerlink" title="例子， 修改java环境变量"></a>例子， 修改java环境变量</h3><p>vim ~/.bashrc</p><p>在文件末尾加：</p><pre><code>export JAVA_HOME=/home/java/jdk1.8.0_201export CLASSPATH=${JAVA_HOME}/libexport PATH=${JAVA_HOME}/bin:$PATH</code></pre><p>刷新缓存，立即生效：</p><p><code>source ~/.bashrc</code></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> linux 命令行 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>调整jupyter notebook的默认路径</title>
+      <link href="undefined2019/09/05/%E8%B0%83%E6%95%B4%20jupyter%20notebook%20%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/"/>
+      <url>2019/09/05/%E8%B0%83%E6%95%B4%20jupyter%20notebook%20%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/</url>
+      
+        <content type="html"><![CDATA[<h1 id="调整-jupyter-notebook-的默认路径"><a href="#调整-jupyter-notebook-的默认路径" class="headerlink" title="调整 jupyter notebook 的默认路径"></a>调整 jupyter notebook 的默认路径</h1><ul><li><p>找到用户目录下的 .jupyter 及其配置环境，找到文件中的 c.NotebookApp.notebook_dir = u’’</p></li><li><p>取消其注释，修改引号内为你需要的目录值</p></li><li><p>在快捷方式处打开使用将目标后面的 %USERPROFILE%删除，这是快捷方式打开他时会自动输入的内容</p><p><img src="/2019/09/05/调整 jupyter notebook 的默认路径/jupyter1.png" alt></p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> jupyter python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>机器学习学习笔记</title>
+      <link href="undefined2019/09/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/09/05/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="机器学习学习笔记"><a href="#机器学习学习笔记" class="headerlink" title="机器学习学习笔记"></a>机器学习学习笔记</h1><blockquote><p>受机器学习一百天（<strong>100-Days-Of-ML-Code</strong>）项目影响决定开启自己的机器学习之旅，该项目<a href="https://github.com/MLEveryday/100-Days-Of-ML-Code" target="_blank" rel="noopener">中文版网址</a></p></blockquote><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li>有监督学习<ul><li>数据预处理</li><li>简单线性回归</li><li>逻辑回归</li></ul></li></ul><h2 id="数据处理工具学习"><a href="#数据处理工具学习" class="headerlink" title="数据处理工具学习"></a>数据处理工具学习</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 机器学习 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数值分析--基础知识</title>
+      <link href="undefined2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+      <url>2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数值分析-—-基础知识"><a href="#数值分析-—-基础知识" class="headerlink" title="数值分析 — 基础知识"></a>数值分析 — 基础知识</h1><h2 id="有效位数缺失"><a href="#有效位数缺失" class="headerlink" title="有效位数缺失"></a>有效位数缺失</h2><ul><li>对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况</li><li>若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+</li><li>如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 数值分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 下各种神奇命令</title>
+      <link href="undefined2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/"/>
+      <url>2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-下各种神奇命令"><a href="#Linux-下各种神奇命令" class="headerlink" title="Linux 下各种神奇命令"></a>Linux 下各种神奇命令</h1><h2 id="查看python位数"><a href="#查看python位数" class="headerlink" title="查看python位数"></a>查看python位数</h2><pre><code class="python">import platformplatform.architecture()</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小程序入门学习零碎知识</title>
+      <link href="undefined2019/09/04/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/"/>
+      <url>2019/09/04/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0%E9%9B%B6%E7%A2%8E%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="微信小程序入门学习零碎知识"><a href="#微信小程序入门学习零碎知识" class="headerlink" title="微信小程序入门学习零碎知识"></a>微信小程序入门学习零碎知识</h1><h2 id="wxss"><a href="#wxss" class="headerlink" title="wxss"></a>wxss</h2><h4 id="像素点"><a href="#像素点" class="headerlink" title="像素点"></a>像素点</h4><ul><li>rpx: 屏幕宽度处理，在不同屏幕下有不同效果</li><li>vh：高度，每个点是1%视口高度</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 微信小程序 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="undefined2019/09/01/%E6%98%93%E9%94%99%E6%80%BB%E7%BB%93/"/>
+      <url>2019/09/01/%E6%98%93%E9%94%99%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h3 id="易错总结"><a href="#易错总结" class="headerlink" title="易错总结"></a>易错总结</h3><h2 id="通用问题"><a href="#通用问题" class="headerlink" title="通用问题"></a>通用问题</h2><ul><li>检查时认真看看是不是写反给定的值</li></ul><h2 id="根据约束降低循环次数"><a href="#根据约束降低循环次数" class="headerlink" title="根据约束降低循环次数"></a>根据约束降低循环次数</h2><ul><li>注意约束中的上下范围也应当判断</li></ul><h2 id="大模拟中的问题"><a href="#大模拟中的问题" class="headerlink" title="大模拟中的问题"></a>大模拟中的问题</h2><ul><li>检查是</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="undefined2019/09/01/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84jupyter/"/>
+      <url>2019/09/01/%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E9%85%8D%E7%BD%AE%E5%8F%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E7%9A%84jupyter/</url>
+      
+        <content type="html"><![CDATA[<h1 id="在服务器上配置可远程访问的jupyter"><a href="#在服务器上配置可远程访问的jupyter" class="headerlink" title="在服务器上配置可远程访问的jupyter"></a>在服务器上配置可远程访问的jupyter</h1><h2 id="安装相关环境"><a href="#安装相关环境" class="headerlink" title="安装相关环境"></a>安装相关环境</h2><pre><code class="shell">pip3 install jupyterpip3 install ipython</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="生成访问密码"><a href="#生成访问密码" class="headerlink" title="生成访问密码"></a>生成访问密码</h3><p>在命令行中输入</p><pre><code>$ ipython</code></pre><p>进入ipython界面</p><p>之后输入代码</p><pre><code class="python">In[1]: from notebook.auth import passwdIn[2]: passwd() #输入密码Enter password:Verify password:Out[2]: &#39;sha1:4a2c6bc...&#39;</code></pre><p>复制上述sha1加密后的密码’sha1:4a2c6bc…’</p><p>在文件夹下新建一个 jupyter_config.py文件，输入如下配置</p><pre><code class="python">c.NotebookApp.password = u&#39;sha1:4a2c6bc...&#39;c.NotebookApp.ip = &#39;*&#39; # 允许任何ip访问，可以设置成特定ipc.NotebookApp.open_browser = Falsec.NotebookApp.port = 8080 # 绑定的端口号，可以任意设置c.NotebookApp.allow_remote_access = True</code></pre><p>打开命令行输入：</p><pre><code>jupyter notebook --config=jupter_config.py --allow-root</code></pre><p>若要放入后台运行则输入</p><pre><code class="shell">nohup jupyter notebook --config=jupter_config.py --allow-root &amp; &gt; jupyter_run_statu 2&gt;&amp;1</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> jupyter </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="undefined2019/09/01/%E6%96%B0%E6%B0%91%E4%B8%BB%E4%B8%BB%E4%B9%89%E9%9D%A9%E5%91%BD/"/>
+      <url>2019/09/01/%E6%96%B0%E6%B0%91%E4%B8%BB%E4%B8%BB%E4%B9%89%E9%9D%A9%E5%91%BD/</url>
+      
+        <content type="html"><![CDATA[<p>新民主主义革命</p><p>三大改造</p><p>习近平新时代中国特色社会主义</p><p>八个明确</p><p>总体布局： 五位一体</p><p>战略布局：四个全面</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 政治 毛概 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小程序js学习心得体会</title>
+      <link href="undefined2019/03/08/3.8%20%E5%AD%A6%E4%B9%A0%E4%BC%9A%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/"/>
+      <url>2019/03/08/3.8%20%E5%AD%A6%E4%B9%A0%E4%BC%9A%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/</url>
+      
+        <content type="html"><![CDATA[<h1 id="3-8-学习会个人总结"><a href="#3-8-学习会个人总结" class="headerlink" title="3.8 学习会个人总结"></a>3.8 学习会个人总结</h1><blockquote><p>时间：2019.3.8</p></blockquote><h2 id="GAN-中G-与-A-的平衡性会影响泛化能力"><a href="#GAN-中G-与-A-的平衡性会影响泛化能力" class="headerlink" title="GAN 中G 与 A 的平衡性会影响泛化能力"></a>GAN 中G 与 A 的平衡性会影响泛化能力</h2><h3 id="根源观点"><a href="#根源观点" class="headerlink" title="根源观点"></a>根源观点</h3><p>通过某些方式，将G 与 A之间的能力保持在一个较位合理的范围内，以确保不会<strong>过拟合</strong></p><h3 id="理论内容"><a href="#理论内容" class="headerlink" title="理论内容"></a>理论内容</h3><ul><li>由于<strong>信息瓶颈</strong>的原因保证其性能在<strong>有限信息量</strong>的基础上， G 与 A 之间的能力呈现出一个凸函数关系，因此，其必定存在一个均衡点使得G A 能力的乘积面积达到一个最大值，即在准确率和正确率中达到一个<strong>最佳取舍</strong></li></ul><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul><li>通过互信息的计算来解决该问题，通过计算输入噪声Z 与 生成器生成的结果X 来保证二者之间的互信息大小达到较小的程度，以此来提高G的泛化能力</li></ul><h2 id="Batch-Normalization-训练分块"><a href="#Batch-Normalization-训练分块" class="headerlink" title="Batch Normalization 训练分块"></a>Batch Normalization 训练分块</h2><h3 id="预知识"><a href="#预知识" class="headerlink" title="预知识"></a>预知识</h3><h4 id="归一化与标准化"><a href="#归一化与标准化" class="headerlink" title="归一化与标准化"></a>归一化与标准化</h4><h5 id="线性归一化"><a href="#线性归一化" class="headerlink" title="线性归一化"></a>线性归一化</h5><p>$ \displaystyle X = \frac{x- x_{min}}{x_{max} - x_{min}} $</p><ul><li>注意点：若最大最小值点是孤立点，会影响性能</li></ul><h5 id="零均值归一化-Z-score标准化"><a href="#零均值归一化-Z-score标准化" class="headerlink" title="零均值归一化/Z-score标准化"></a>零均值归一化/Z-score标准化</h5><p>$ y_i = \displaystyle \frac{x_i - \mu}{ \sigma } $ </p><ul><li>若原始状态是正态分布，则会被转换为标准正态分布</li></ul><h4 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h4><h5 id="使用原因"><a href="#使用原因" class="headerlink" title="使用原因"></a>使用原因</h5><ul><li>在训练时的数据需要进行划分，防止数据过大，因此使用一个batch</li><li>而在划分的数据中需要进行Normalization 防止其梯度消失</li></ul><h5 id="基本做法"><a href="#基本做法" class="headerlink" title="基本做法"></a>基本做法</h5><ul><li>获取一个mini-batch 用作本次处理用的batch</li><li>计算均值与方差</li></ul><p>$$<br>\mu_B = \frac{1}{n} \sum_{i=1}^{n} x_i — 1 \<br>\sigma_B^2 = \frac{1}{n} \sum_{i = 1}{n}(x_i - \mu_B)^2  —2 \<br>$$</p><ul><li>对每个元素进行归一化<br>$$<br>x_i^{‘} = \frac{x_i - \mu_B}{\sqrt{\sigma_B^2 + \epsilon}}<br>$$</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 深度学习 图像识别 机器学习 </tag>
+            
+        </tags>
       
     </entry>
     

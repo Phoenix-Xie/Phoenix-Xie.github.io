@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/img/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好">
+    <meta name="author" content="Phoenix">
+    <meta name="keywords" content>
+    <title>网络流学习笔记 ~ Phoenix&#39;s Blog</title>
+    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
+    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
+    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
+    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+    
+        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+</head>
+
+
+<body>
+<header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">&nbsp;<strong>Phoenix&#39;s Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto text-center">
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/archives/">Archives</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/tags/">Tags</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">About</a>
+            </li>
+            
+            
+                <li class="nav-item" id="search-btn">
+                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+                </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</nav>
+    <div class="view intro-2"
+         style="background: url('/img/post.jpg')no-repeat center center;background-size: cover;">
+        <div class="full-bg-img">
+            <div class="mask rgba-black-light flex-center">
+                <div class="container text-center white-text wow fadeInUp">
+                    <span class="h2" id="subtitle">
+                        
+                    </span>
+                    
+                        <br>
+                        <p>星期四, 九月 5日 2019, 8:22 早上</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    
+        
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-none d-lg-block col-lg-2"></div>
+            <div class="col-lg-8 nopadding-md">
+                <div class="py-5 z-depth-3 board">
+                    <div class="post-content mx-auto">
+                        <div class="markdown-body">
+                            <h1 id="网络流学习笔记"><a href="#网络流学习笔记" class="headerlink" title="网络流学习笔记"></a>网络流学习笔记</h1><h3 id="第一天：-实现最基础网络流算法"><a href="#第一天：-实现最基础网络流算法" class="headerlink" title="第一天： 实现最基础网络流算法"></a>第一天： 实现最基础网络流算法</h3><h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="C++">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+#include &lt;memory.h&gt; 
+using namespace std;
+const int MAXN = 100;
+const int MAXM = MAXN*MAXN;
+const int INF = 0x3f3f3f3f;
+int head[MAXN], Next[MAXM], ver[MAXM], edge[MAXM], flow[MAXM];
+int tot;
+
+void init(){
+    tot = 0;
+    memset(head, 0, sizeof(head));
+}
+void add(int x, int y, int z, int f){
+    Next[++tot] = head[x];
+    head[x] = tot;
+    ver[tot] = y;
+    edge[tot] = z;
+    flow[tot] = f;
+}
+
+void add2(int x, int y, int z){
+    add(x, y, z, 0);
+    add(y, x, z, z);
+}
+int ss, tt, res[MAXN], pre[MAXN], v[MAXN], pre_index;
+int bfs(){
+    int x = ss;
+    queue &lt;int&gt; q;
+    while(!q.empty()) q.pop();
+    memset(pre, 0, sizeof(pre));
+    memset(res, 0, sizeof(res));
+    memset(v, 0, sizeof(v));
+    pre_index = 0;
+    res[x] = INF;
+
+    q.push(x);
+    v[x] = 1;
+    int c = 0;
+    while(!q.empty()){
+        x = q.front(); q.pop();
+        for(int i = head[x]; i; i = Next[i]){
+            int y = ver[i], z = edge[i], f = flow[i];
+
+            //cout &lt;&lt; y &lt;&lt;&quot;flow&quot;&lt;&lt;f&lt;&lt;endl;
+            int fr = z-f;
+            //可流判断
+            if(fr &gt; 0){
+                if(v[y]) continue;
+                c++;
+                cout &lt;&lt; c &lt;&lt; x &lt;&lt; &quot;-&gt;&quot; &lt;&lt; y &lt;&lt; &quot;:&quot; &lt;&lt; fr &lt;&lt; endl; 
+                int t = min(res[x], fr);
+                res[x]-=t;
+                res[y]+=t;
+                q.push(y);
+                v[y] = 1;
+                pre[pre_index++] = i;
+                if(y == tt){
+                    return t;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+
+int EK(){
+    int f = 0, ans = 0;
+    while(1){
+        cout &lt;&lt; f &lt;&lt; endl;
+        for(int i = 0; i &lt; pre_index; i++){
+            //cout &lt;&lt; &quot;iii&quot; &lt;&lt; pre[i] &lt;&lt; endl;
+            flow[pre[i]] += f;
+            flow[pre[i]%2?pre[i]-1:pre[i]+1] -= f;
+        }
+        ans+=f;
+        f = bfs();
+        if(f == 0) break;
+    }
+    return ans;
+}
+int main(){
+    //输入n点m边
+    //节点编号从1开始
+    int n, m;
+    cin &gt;&gt; n &gt;&gt; m;
+    cin &gt;&gt; ss &gt;&gt; tt;
+    init();
+    for(int i = 1; i &lt;= m; i++){
+        int a, b, z, f;
+        cin &gt;&gt; a &gt;&gt; b &gt;&gt; z;
+        add2(a, b, z);
+    }
+    cout &lt;&lt; EK() &lt;&lt; endl;
+}
+/*
+6 8
+1 4
+1 6 2
+6 5 1
+5 4 3
+3 4 2
+1 4 3
+2 3 1
+1 2 2
+1 3 2
+*/ 
+</code></pre>
+<h4 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h4><h5 id="死循环"><a href="#死循环" class="headerlink" title="死循环"></a>死循环</h5><ol>
+<li>邻接表的终止值是0还是-1需要考虑清楚</li>
+</ol>
+<h5 id="bfs搜索错误"><a href="#bfs搜索错误" class="headerlink" title="bfs搜索错误"></a>bfs搜索错误</h5><ol>
+<li>由于可能出现环，需要标记进入队列的点，借用spaf算法的标记方式，保证不因为环而死循环</li>
+</ol>
+
+                            <hr>
+                        </div>
+                        <br>
+                        <div>
+                            
+                            <p>
+                                <i class="iconfont icon-tag"></i>
+                                
+                                    <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95">算法</a>
+                                
+                            </p>
+                            
+                                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="d-none d-lg-block col-lg-2 toc-container">
+            
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p> 
+    <div id="tocbot"></div>
+  </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+            <br><br>
+            
+            <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script>               
+        var disqus_shortname = '';
+        var disqus_config = function () {
+            this.page.url = 'http://yoursite.com/2019/09/05/# 网络流学习笔记/'; 
+            this.page.identifier = '/2019/09/05/# 网络流学习笔记/';
+        };
+        (function() { 
+            var d = document, s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.src = '//'+disqus_shortname+'.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow noopener">comments powered by Disqus.</a></noscript>
+</div>	    
+        
+    </div>
+</div>
+
+    
+</main>
+
+
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer class="mt-5">
+    <div class="text-center py-3">
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"><b>Pheonix</b></a>
+        <i class="iconfont icon-love"></i>
+        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"> <b>小谢</b></a>
+        <br>
+        
+    </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+<script src="/lib/mdbootstrap/js/popper.min.js"></script>
+<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
+<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
+<script src="/js/main.js"></script>
+
+    
+        <script src="/lib/tocbot/tocbot.min.js?v=4.7.0"></script>
+    
+    <script src="/js/post.js"></script>
+
+
+    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+            prettyPrint();
+        })
+    </script>
+
+
+    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
+    <script>
+        var typed = new Typed('#subtitle', {
+            strings: [
+                '  ',
+                "网络流学习笔记&nbsp;",
+            ],
+            cursorChar: "_",
+            typeSpeed: 70,
+            loop: false,
+        });
+        typed.stop();
+        $(document).ready(function () {
+            $(".typed-cursor").addClass("h2");
+            typed.start();
+        });
+    </script>
+
+
+    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
+    <script>
+        anchors.options = {
+            placement: "right",
+            visible: "false",
+            
+        };
+        var el = "h1,h2,h3,h4,h5,h6".split(",")
+        var res = []
+        for (item of el) {
+            res.push(".markdown-body > " + item)
+        }
+        anchors.add(res.join(", "))
+    </script>
+
+
+
+    <script src="/js/local-search.js"></script>
+    <script>
+        var path = "/local-search.xml";
+        var inputArea = document.querySelector("#local-search-input");
+        inputArea.onclick = function () {
+            getSearchFile(path);
+            this.onclick = null
+        }
+    </script>
+
+</body>
+</html>

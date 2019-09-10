@@ -300,7 +300,32 @@
 
 </div>
 
-
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+    <div class="container comments mx-auto" id="comments">
+        
+            <br><br>
+            
+            
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script>
+<script>
+    var gitment = new Gitment({
+        id: '',
+        owner: 'Phoenix-Xie',
+        repo: 'self_page_comment',
+        oauth: {
+            client_id: '',
+            client_secret: '66c22a77ecb87898c6a36d40e4f22880e590bb2a',
+        },
+    });
+    gitment.render('gitmentContainer')
+</script>
+	    
+        
+    </div>
+</div>
                         </div>
                     </div>
                 </div>

@@ -107,21 +107,12 @@
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/centos下nginx的部署配置/">
-                <p class="h4 index-header">centos下nginx的部署配置</p>
+            <a href="/2019/09/05/python3 与python2 下virtualenv 的使用/">
+                <p class="h4 index-header">python3 与 python2下virtualenv的使用</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">centos下nginx的部署配置服务设置
-service nginx restart
-git 账户密码如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。
-解决办法：
-git bash进入你的项目目录，输入：
-git config –global credential.helper store
-然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。
-然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。
-linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
-2 &gt; &amp; 1指将错误输出输入到标准输出中
-</div>
+                        <div class="index-text mb-1">python3 与python2 下virtualenv 的使用当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为
+virtualenv -p python3 env</div>
                     
                 </div>
             </a>
@@ -134,7 +125,7 @@ linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%20centos">服务器 centos</a>&nbsp;
+                            <a href="/tags/python3">python3</a>&nbsp;
                         
                     
                 </div>
@@ -148,20 +139,31 @@ linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/调整 jupyter notebook 的默认路径/">
-                <p class="h4 index-header">调整jupyter notebook的默认路径</p>
+            <a href="/2019/09/05/# 网络流学习笔记/">
+                <p class="h4 index-header">网络流学习笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">调整 jupyter notebook 的默认路径
-找到用户目录下的 .jupyter 及其配置环境，找到文件中的 c.NotebookApp.notebook_dir = u’’
+                        <div class="index-text mb-1">网络流学习笔记第一天： 实现最基础网络流算法基本思路代码实现#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+#include &lt;memory.h&gt; 
+using namespace std;
+const int MAXN = 100;
+const int MAXM = MAXN*MAXN;
+const int INF = 0x3f3f3f3f;
+int head[MAXN], Next[MAXM], ver[MAXM], edge[MAXM], flow[MAXM];
+int tot;
 
-取消其注释，修改引号内为你需要的目录值
-
-在快捷方式处打开使用将目标后面的 %USERPROFILE%删除，这是快捷方式打开他时会自动输入的内容
-
-
-
-</div>
+void init(){
+    tot = 0;
+    memset(head, 0, sizeof(head));
+}
+void add(int x, int y, int z, int f){
+    Next[++tot] = head[x];
+    head[x] = tot;
+    ver[tot] = y;
+    edge[tot] = z;
+    flow[to</div>
                     
                 </div>
             </a>
@@ -174,7 +176,7 @@ linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/jupyter%20python">jupyter python</a>&nbsp;
+                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
                         
                     
                 </div>
@@ -240,20 +242,43 @@ catchtap可以中断冒泡事件
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Django 2.1 学习笔记/">
-                <p class="h4 index-header">Django 2.1 学习笔记</p>
+            <a href="/2019/09/05/Docker 入坑教程笔记/">
+                <p class="h4 index-header">Docker 入坑教程笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
-templates都默认在templates文件夹下
-如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
+                        <div class="index-text mb-1">Docker 入坑教程笔记
+视频网址B站：点这里
 
-HTTP 模块HttpResponseRedirect
-设原网址为  127.0.0.1/user/Lab
-如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
-如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
 
-</div>
+查询命令 man
+
+docker 简单启动和退出
+docker run --name [容器名] -i -t ubuntu  /bin/bash  交互启动虚拟机
+-t 提供伪tty终端
+docker ps [-a][-l]
+docker inspect [container name or id] 配置信息，有用数据
+docker start [-i] 重新启动停止容器
+exit 退出
+
+docker 守护式进程启动启
+ctrl + P ctrl + Q  交互式运行
+ps 不加a可以看到正在运行的容器
+
+
+
+docker 查看情况
+docker run -d 启动一个守护式容器
+
+docker logs [容器名] -tf  t是显示实践 f是显示日志 –tail 选取一定最后数量日志
+
+docker top [容器名] 查看容器中的进程数量
+
+docker exec [-d] [-i] [-t] 容器名 [COMMAND]     启动一个容器进程
+
+
+停止守护式容器
+docker stop 发出停止信号
+docker kil</div>
                     
                 </div>
             </a>
@@ -266,7 +291,7 @@ HTTP 模块HttpResponseRedirect
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/django">django</a>&nbsp;
+                            <a href="/tags/docker%20%E6%9C%8D%E5%8A%A1%E5%99%A8">docker 服务器</a>&nbsp;
                         
                     
                 </div>
@@ -280,22 +305,19 @@ HTTP 模块HttpResponseRedirect
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Linux 命令行学习/">
-                <p class="h4 index-header">Linux 命令行学习</p>
+            <a href="/2019/09/05/LeetCode-环形链表II/">
+                <p class="h4 index-header">LeetCode-环形链表II</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Linux 命令行学习
-ps -ef
-curl [网址] 显示html内容
+                        <div class="index-text mb-1">LeetCode-环形链表II
+为找到入口点可以用以下方法
 
-环境变量例子， 修改java环境变量vim ~/.bashrc
-在文件末尾加：
-export JAVA_HOME=/home/java/jdk1.8.0_201
+使用快慢指针法直到两个指针相遇
+头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
 
-export CLASSPATH=${JAVA_HOME}/lib
-
-export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
-source ~/.bashrc
+设 起点为A ，入口点为B，快慢指针相遇点为C
+AB = n, BC = k，环长为m
+因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
 </div>
                     
                 </div>
@@ -309,7 +331,7 @@ source ~/.bashrc
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
+                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
                         
                     
                 </div>
@@ -323,47 +345,18 @@ source ~/.bashrc
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/查看python位数/">
-                <p class="h4 index-header">Linux 下各种神奇命令</p>
+            <a href="/2019/09/05/调整 jupyter notebook 的默认路径/">
+                <p class="h4 index-header">调整jupyter notebook的默认路径</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Linux 下各种神奇命令查看python位数import platform
-platform.architecture()
-</div>
-                    
-                </div>
-            </a>
+                        <div class="index-text mb-1">调整 jupyter notebook 的默认路径
+找到用户目录下的 .jupyter 及其配置环境，找到文件中的 c.NotebookApp.notebook_dir = u’’
 
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/linux">linux</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
+取消其注释，修改引号内为你需要的目录值
 
-    <div class="row mb-4 mx-auto">
-        
-        
+在快捷方式处打开使用将目标后面的 %USERPROFILE%删除，这是快捷方式打开他时会自动输入的内容
 
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/数值分析 --- 基础知识/">
-                <p class="h4 index-header">数值分析--基础知识</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">数值分析 — 基础知识有效位数缺失
-对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况
-若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+
-如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$
+
 
 </div>
                     
@@ -378,7 +371,7 @@ platform.architecture()
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90">数值分析</a>&nbsp;
+                            <a href="/tags/jupyter%20python">jupyter python</a>&nbsp;
                         
                     
                 </div>
@@ -475,6 +468,39 @@ ls -lht
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/查看python位数/">
+                <p class="h4 index-header">Linux 下各种神奇命令</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Linux 下各种神奇命令查看python位数import platform
+platform.architecture()
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/linux">linux</a>&nbsp;
                         
                     
                 </div>

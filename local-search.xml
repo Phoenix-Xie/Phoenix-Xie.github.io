@@ -80,17 +80,17 @@
     
     
     <entry>
-      <title>数值分析--基础知识</title>
-      <link href="undefined2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-      <url>2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      <title>LeetCode-环形链表II</title>
+      <link href="undefined2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/"/>
+      <url>2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/</url>
       
-        <content type="html"><![CDATA[<h1 id="数值分析-—-基础知识"><a href="#数值分析-—-基础知识" class="headerlink" title="数值分析 — 基础知识"></a>数值分析 — 基础知识</h1><h2 id="有效位数缺失"><a href="#有效位数缺失" class="headerlink" title="有效位数缺失"></a>有效位数缺失</h2><ul><li>对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况</li><li>若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+</li><li>如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>LeetCode-环形链表II</p><p>为找到入口点可以用以下方法</p><ol><li>使用快慢指针法直到两个指针相遇</li><li>头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点</li></ol><p>设 起点为A ，入口点为B，快慢指针相遇点为C</p><p>AB = n, BC = k，环长为m</p><p>因此快慢指针相遇时，快慢指针走过长度<br>$$<br>快： n+a<em>m+k \<br>慢： n+b<em>m+k<br>$$<br>因此有等式<br>$$<br>n+a</em>m+k = 2</em>(n+b<em>m+k)<br>$$<br>化简后得到<br>$$<br>n+k = (a-2b)</em>m —{1}<br>$$<br>由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此<br>$$<br>慢指针新长度：n+b<em>m+k<br>$$<br>带入1式子得到<br>$$<br>n+b</em>m+k \<br>= (a-b)*m+n<br>$$<br>显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处</p>]]></content>
       
       
       
         <tags>
             
-            <tag> 数值分析 </tag>
+            <tag> 算法 </tag>
             
         </tags>
       
@@ -99,36 +99,17 @@
     
     
     <entry>
-      <title>Django 2.1 学习笔记</title>
-      <link href="undefined2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-      <url>2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      <title>微信小程序js学习心得体会</title>
+      <link href="undefined2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
+      <url>2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/</url>
       
-        <content type="html"><![CDATA[<h1 id="Django-2-1-学习笔记"><a href="#Django-2-1-学习笔记" class="headerlink" title="Django 2.1 学习笔记"></a>Django 2.1 学习笔记</h1><h3 id="静态Html管理"><a href="#静态Html管理" class="headerlink" title="静态Html管理"></a>静态Html管理</h3><h4 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h4><ol><li>templates都默认在templates文件夹下</li><li>如果需要新增模块，可以在该文件夹下新增相同名字的文件夹</li></ol><h3 id="HTTP-模块"><a href="#HTTP-模块" class="headerlink" title="HTTP 模块"></a>HTTP 模块</h3><h4 id="HttpResponseRedirect"><a href="#HttpResponseRedirect" class="headerlink" title="HttpResponseRedirect"></a>HttpResponseRedirect</h4><ul><li>设原网址为  127.0.0.1/user/Lab</li><li>如果参数为 <strong>‘/user’</strong>, 跳转到   <strong>127.0.0.1/user</strong>   &lt;绝对路径&gt;</li><li>如果参数为 <strong>‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user</strong>  &lt;相对路径&gt;</li></ul>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> django </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Mevan 使用体验</title>
-      <link href="undefined2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
-      <url>2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Mevan-使用体验"><a href="#Mevan-使用体验" class="headerlink" title="Mevan 使用体验"></a>Mevan 使用体验</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包</p>]]></content>
+        <content type="html"><![CDATA[<h1 id="微信小程序js学习心得体会"><a href="#微信小程序js学习心得体会" class="headerlink" title="微信小程序js学习心得体会"></a>微信小程序js学习心得体会</h1><h3 id="页面控制的bindtap和catchtap"><a href="#页面控制的bindtap和catchtap" class="headerlink" title="页面控制的bindtap和catchtap"></a>页面控制的bindtap和catchtap</h3><blockquote><p>用法，区别</p></blockquote><pre><code class="html">&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;</code></pre><pre><code class="js">tabMessage: function(e){    console.log(e.target.id);    console.log(e.target.dataset);    console.log(e.target.dataset.userdate);  },</code></pre><ul><li>可以获取的数据<ul><li>id</li><li>设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写</li></ul></li><li>bindtap 与 catchtap的是否冒泡的区别<ul><li>bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会</li><li>catchtap可以中断冒泡事件</li><li>任何控件都可以添加该事件</li><li>因此通常会在最外层使用一个view作为总控件，添加一个bindtap执行如全局刷新等功能</li></ul></li></ul><h2 id="setData"><a href="#setData" class="headerlink" title="setData"></a>setData</h2><p>对于小程序中存在js中data的初始数据，假设如下</p><pre><code class="js">data: {    count: 1,    weeek: 1  },      view1: function(e){          this.setData({              count: 2          })      }</code></pre><p>在这个js中，如果执行view1函数，则data数据只有count会改变，而week不会改变，不会受到影响。</p>]]></content>
       
       
       
         <tags>
             
-            <tag> Mevan </tag>
+            <tag> 微信小程序 </tag>
             
         </tags>
       
@@ -175,6 +156,25 @@
     
     
     <entry>
+      <title>Mevan 使用体验</title>
+      <link href="undefined2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/"/>
+      <url>2019/09/05/Mevan%20%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Mevan-使用体验"><a href="#Mevan-使用体验" class="headerlink" title="Mevan 使用体验"></a>Mevan 使用体验</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><p>在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Mevan </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>centos下nginx的部署配置</title>
       <link href="undefined2019/09/05/centos%E4%B8%8Bnginx%E7%9A%84%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE/"/>
       <url>2019/09/05/centos%E4%B8%8Bnginx%E7%9A%84%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE/</url>
@@ -213,6 +213,25 @@
     
     
     <entry>
+      <title>Django 2.1 学习笔记</title>
+      <link href="undefined2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+      <url>2019/09/05/Django%202.1%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Django-2-1-学习笔记"><a href="#Django-2-1-学习笔记" class="headerlink" title="Django 2.1 学习笔记"></a>Django 2.1 学习笔记</h1><h3 id="静态Html管理"><a href="#静态Html管理" class="headerlink" title="静态Html管理"></a>静态Html管理</h3><h4 id="templates"><a href="#templates" class="headerlink" title="templates"></a>templates</h4><ol><li>templates都默认在templates文件夹下</li><li>如果需要新增模块，可以在该文件夹下新增相同名字的文件夹</li></ol><h3 id="HTTP-模块"><a href="#HTTP-模块" class="headerlink" title="HTTP 模块"></a>HTTP 模块</h3><h4 id="HttpResponseRedirect"><a href="#HttpResponseRedirect" class="headerlink" title="HttpResponseRedirect"></a>HttpResponseRedirect</h4><ul><li>设原网址为  127.0.0.1/user/Lab</li><li>如果参数为 <strong>‘/user’</strong>, 跳转到   <strong>127.0.0.1/user</strong>   &lt;绝对路径&gt;</li><li>如果参数为 <strong>‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user</strong>  &lt;相对路径&gt;</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> django </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>网络流学习笔记</title>
       <link href="undefined2019/09/05/#%20%E7%BD%91%E7%BB%9C%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
       <url>2019/09/05/#%20%E7%BD%91%E7%BB%9C%E6%B5%81%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
@@ -224,25 +243,6 @@
         <tags>
             
             <tag> 算法 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>微信小程序js学习心得体会</title>
-      <link href="undefined2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/"/>
-      <url>2019/09/05/#%20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8Fjs%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97%E4%BD%93%E4%BC%9A/</url>
-      
-        <content type="html"><![CDATA[<h1 id="微信小程序js学习心得体会"><a href="#微信小程序js学习心得体会" class="headerlink" title="微信小程序js学习心得体会"></a>微信小程序js学习心得体会</h1><h3 id="页面控制的bindtap和catchtap"><a href="#页面控制的bindtap和catchtap" class="headerlink" title="页面控制的bindtap和catchtap"></a>页面控制的bindtap和catchtap</h3><blockquote><p>用法，区别</p></blockquote><pre><code class="html">&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;</code></pre><pre><code class="js">tabMessage: function(e){    console.log(e.target.id);    console.log(e.target.dataset);    console.log(e.target.dataset.userdate);  },</code></pre><ul><li>可以获取的数据<ul><li>id</li><li>设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写</li></ul></li><li>bindtap 与 catchtap的是否冒泡的区别<ul><li>bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会</li><li>catchtap可以中断冒泡事件</li><li>任何控件都可以添加该事件</li><li>因此通常会在最外层使用一个view作为总控件，添加一个bindtap执行如全局刷新等功能</li></ul></li></ul><h2 id="setData"><a href="#setData" class="headerlink" title="setData"></a>setData</h2><p>对于小程序中存在js中data的初始数据，假设如下</p><pre><code class="js">data: {    count: 1,    weeek: 1  },      view1: function(e){          this.setData({              count: 2          })      }</code></pre><p>在这个js中，如果执行view1函数，则data数据只有count会改变，而week不会改变，不会受到影响。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 微信小程序 </tag>
             
         </tags>
       
@@ -270,25 +270,6 @@
     
     
     <entry>
-      <title>LeetCode-环形链表II</title>
-      <link href="undefined2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/"/>
-      <url>2019/09/05/LeetCode-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8II/</url>
-      
-        <content type="html"><![CDATA[<p>LeetCode-环形链表II</p><p>为找到入口点可以用以下方法</p><ol><li>使用快慢指针法直到两个指针相遇</li><li>头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点</li></ol><p>设 起点为A ，入口点为B，快慢指针相遇点为C</p><p>AB = n, BC = k，环长为m</p><p>因此快慢指针相遇时，快慢指针走过长度<br>$$<br>快： n+a<em>m+k \<br>慢： n+b<em>m+k<br>$$<br>因此有等式<br>$$<br>n+a</em>m+k = 2</em>(n+b<em>m+k)<br>$$<br>化简后得到<br>$$<br>n+k = (a-2b)</em>m —{1}<br>$$<br>由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此<br>$$<br>慢指针新长度：n+b<em>m+k<br>$$<br>带入1式子得到<br>$$<br>n+b</em>m+k \<br>= (a-b)*m+n<br>$$<br>显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> 算法 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>调整jupyter notebook的默认路径</title>
       <link href="undefined2019/09/05/%E8%B0%83%E6%95%B4%20jupyter%20notebook%20%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/"/>
       <url>2019/09/05/%E8%B0%83%E6%95%B4%20jupyter%20notebook%20%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84/</url>
@@ -300,6 +281,44 @@
         <tags>
             
             <tag> jupyter python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>数值分析--基础知识</title>
+      <link href="undefined2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+      <url>2019/09/05/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90%20---%20%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="数值分析-—-基础知识"><a href="#数值分析-—-基础知识" class="headerlink" title="数值分析 — 基础知识"></a>数值分析 — 基础知识</h1><h2 id="有效位数缺失"><a href="#有效位数缺失" class="headerlink" title="有效位数缺失"></a>有效位数缺失</h2><ul><li>对于两个数字a与b，若两者十分相近，那么就极易出现 a-b精度不够的情况</li><li>若存在 $\dfrac{a-b}{c}$ 的形式，那么可以考虑将a-b通过一定方式转换为+</li><li>如 $\sqrt{9.01} - 3 = \dfrac{(\sqrt{9.01} - 3)(\sqrt{9.01}+3)}{\sqrt{9.01} + 3} = \dfrac{9.01-3^2}{\sqrt{9.01} + 3}$</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 数值分析 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux 下各种神奇命令</title>
+      <link href="undefined2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/"/>
+      <url>2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<h1 id="Linux-下各种神奇命令"><a href="#Linux-下各种神奇命令" class="headerlink" title="Linux 下各种神奇命令"></a>Linux 下各种神奇命令</h1><h2 id="查看python位数"><a href="#查看python位数" class="headerlink" title="查看python位数"></a>查看python位数</h2><pre><code class="python">import platformplatform.architecture()</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
             
         </tags>
       
@@ -338,25 +357,6 @@
         <tags>
             
             <tag> 机器学习 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Linux 下各种神奇命令</title>
-      <link href="undefined2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/"/>
-      <url>2019/09/05/%E6%9F%A5%E7%9C%8Bpython%E4%BD%8D%E6%95%B0/</url>
-      
-        <content type="html"><![CDATA[<h1 id="Linux-下各种神奇命令"><a href="#Linux-下各种神奇命令" class="headerlink" title="Linux 下各种神奇命令"></a>Linux 下各种神奇命令</h1><h2 id="查看python位数"><a href="#查看python位数" class="headerlink" title="查看python位数"></a>查看python位数</h2><pre><code class="python">import platformplatform.architecture()</code></pre>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> linux </tag>
             
         </tags>
       

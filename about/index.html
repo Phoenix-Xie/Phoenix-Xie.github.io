@@ -132,12 +132,115 @@
     
 </div>
 
-
+<br>
 <div class="text-center">
+    <!--个人信息-->
+    <p><a href="#infoList" class="btn btn-outline-primary" data-toggle="collapse">个人信息</a></p>
+    <div id="infoList" class="collapse">
+        
+            
+        <div class="row mb-4 font-weight-bold" >
+            <div class="col-12 col-md-4 text-right">
+            <ul class="list-group ">
+                
+                <li class="list-group-item"><span>🆔&nbsp;&nbsp;</span>姓名：谢哲勇 </li>
+                
+                <li class="list-group-item"><span>🚹&nbsp;&nbsp;</span>性别：男 </li>
+                
+            </ul>
+            </div> 
+            <div class="col-12 col-md-4 text-center">
+                    <ul class="list-group ">
+                        
+                        <li class="list-group-item"><span>🌍&nbsp;&nbsp;</span>民族：汉 </li>
+                        
+                        <li class="list-group-item"><span>📚&nbsp;&nbsp;</span>学历：本科 </li>
+                        
+                    </ul>
+            </div>
+            <div class="col-12 col-md-4 text-left">
+                <ul class="list-group ">
+                    
+                    <li class="list-group-item "><span>🔤&nbsp;&nbsp;</span>英语：CET-6 </li>
+                    <input hidden type="text" value="123">
+                    
+                    <li class="list-group-item "><span>🏫&nbsp;&nbsp;</span>专业：保密管理 </li>
+                    <input hidden type="text" value="123">
+                    
+                </ul>
+            </div>   
+        </div>
+
+        
+    </div>
+
+    <!--学习经历-->
+    <p><a href="#studyList" class="btn btn-outline-primary" data-toggle="collapse">学习经历</a></p>
+    <div id="studyList" class="collapse">
+        <div class="row mb-4 font-weight-bold" >
+            
+            <div class="col-12 col-md-3 text-center" id="xiaoxue">
+                <ul class="list-group" >
+                    <li class="list-group-item"><span>💯&nbsp;&nbsp;</span>安溪县实验小学</li>
+                </ul>
+            </div>
+            
+            <div class="col-12 col-md-3 text-center" id="zhongxue">
+                <ul class="list-group" >
+                    <li class="list-group-item"><span>🎒&nbsp;&nbsp;</span>安溪县凤城中学</li>
+                </ul>
+            </div>
+            
+            <div class="col-12 col-md-3 text-center" id="gaozhong">
+                <ul class="list-group" >
+                    <li class="list-group-item"><span>📚&nbsp;&nbsp;</span>安溪县第一中学</li>
+                </ul>
+            </div>
+            
+            <div class="col-12 col-md-3 text-center" id="daxue">
+                <ul class="list-group" >
+                    <li class="list-group-item"><span>🎓&nbsp;&nbsp;</span>中国海洋大学</li>
+                </ul>
+            </div>
+            
+        </div>
+        <div id="container">
+        <div id="progress" class="progress" >
+            <div  id="progress-bar" class="progress-bar progress-bar-striped" style="width:10%"></div>
+            </div>
+        </div>
+        
+            <script>
+                $("#xiaoxue").mouseenter(function(){
+                    $("#progress-bar").width(25%);
+                })
+            </script>
+        
+            <script>
+                $("#zhongxue").mouseenter(function(){
+                    $("#progress-bar").width(50%);
+                })
+            </script>
+        
+            <script>
+                $("#gaozhong").mouseenter(function(){
+                    $("#progress-bar").width(75%);
+                })
+            </script>
+        
+            <script>
+                $("#daxue").mouseenter(function(){
+                    $("#progress-bar").width(100%);
+                })
+            </script>
+        
+    </div>
+    
+    
+    <!--项目经历-->
     <p><a href="#itemList" class="btn btn-outline-primary" data-toggle="collapse">项目经历</a></p>
     <div id="itemList" class="collapse">
         
-          
           
         <div class="row mb-4 mx-auto">
             
@@ -165,8 +268,8 @@
               
             
         </div>
+
         
-          
           
         <div class="row mb-4 mx-auto">
             
@@ -194,8 +297,8 @@
               
             
         </div>
+
         
-          
           
         <div class="row mb-4 mx-auto">
             
@@ -228,8 +331,11 @@
               
             
         </div>
+
         
     </div>
+
+    <!--获奖经历-->
     <p><a href="#rewardList" class="btn btn-outline-primary" data-toggle="collapse">获奖经历</a></p>
     <div id="rewardList" class="collapse">
         
@@ -291,6 +397,8 @@
               
           </div>
           
+    
+    
     </div>
 </div>
 

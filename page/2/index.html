@@ -107,32 +107,12 @@
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/# 微信小程序js学习心得体会/">
-                <p class="h4 index-header">微信小程序js学习心得体会</p>
+            <a href="/2019/09/05/python3 与python2 下virtualenv 的使用/">
+                <p class="h4 index-header">python3 与 python2下virtualenv的使用</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小程序js学习心得体会页面控制的bindtap和catchtap
-用法，区别
-
-&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;
-tabMessage: function(e){
-    console.log(e.target.id);
-
-    console.log(e.target.dataset);
-
-    console.log(e.target.dataset.userdate);
-  },
-
-可以获取的数据
-id
-设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写
-
-
-bindtap 与 catchtap的是否冒泡的区别
-bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会
-catchtap可以中断冒泡事件
-任何控件都可以添加该事件
-因此通常会在最外层使用一个view作为总控件，添加</div>
+                        <div class="index-text mb-1">python3 与python2 下virtualenv 的使用当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为
+virtualenv -p python3 env</div>
                     
                 </div>
             </a>
@@ -145,7 +125,7 @@ catchtap可以中断冒泡事件
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
+                            <a href="/tags/python3">python3</a>&nbsp;
                         
                     
                 </div>
@@ -159,22 +139,19 @@ catchtap可以中断冒泡事件
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Linux 命令行学习/">
-                <p class="h4 index-header">Linux 命令行学习</p>
+            <a href="/2019/09/05/调整 jupyter notebook 的默认路径/">
+                <p class="h4 index-header">调整jupyter notebook的默认路径</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Linux 命令行学习
-ps -ef
-curl [网址] 显示html内容
+                        <div class="index-text mb-1">调整 jupyter notebook 的默认路径
+找到用户目录下的 .jupyter 及其配置环境，找到文件中的 c.NotebookApp.notebook_dir = u’’
 
-环境变量例子， 修改java环境变量vim ~/.bashrc
-在文件末尾加：
-export JAVA_HOME=/home/java/jdk1.8.0_201
+取消其注释，修改引号内为你需要的目录值
 
-export CLASSPATH=${JAVA_HOME}/lib
+在快捷方式处打开使用将目标后面的 %USERPROFILE%删除，这是快捷方式打开他时会自动输入的内容
 
-export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
-source ~/.bashrc
+
+
 </div>
                     
                 </div>
@@ -188,7 +165,7 @@ source ~/.bashrc
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
+                            <a href="/tags/jupyter%20python">jupyter python</a>&nbsp;
                         
                     
                 </div>
@@ -253,19 +230,19 @@ void add(int x, int y, int z, int f){
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/LeetCode-环形链表II/">
-                <p class="h4 index-header">LeetCode-环形链表II</p>
+            <a href="/2019/09/05/Django 2.1 学习笔记/">
+                <p class="h4 index-header">Django 2.1 学习笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">LeetCode-环形链表II
-为找到入口点可以用以下方法
+                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
+templates都默认在templates文件夹下
+如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
 
-使用快慢指针法直到两个指针相遇
-头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
+HTTP 模块HttpResponseRedirect
+设原网址为  127.0.0.1/user/Lab
+如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
+如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
 
-设 起点为A ，入口点为B，快慢指针相遇点为C
-AB = n, BC = k，环长为m
-因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
 </div>
                     
                 </div>
@@ -279,7 +256,50 @@ AB = n, BC = k，环长为m
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
+                            <a href="/tags/django">django</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/Linux 命令行学习/">
+                <p class="h4 index-header">Linux 命令行学习</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">Linux 命令行学习
+ps -ef
+curl [网址] 显示html内容
+
+环境变量例子， 修改java环境变量vim ~/.bashrc
+在文件末尾加：
+export JAVA_HOME=/home/java/jdk1.8.0_201
+
+export CLASSPATH=${JAVA_HOME}/lib
+
+export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
+source ~/.bashrc
+</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
                         
                     
                 </div>
@@ -316,88 +336,6 @@ AB = n, BC = k，环长为m
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/%E6%95%B0%E5%80%BC%E5%88%86%E6%9E%90">数值分析</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/调整 jupyter notebook 的默认路径/">
-                <p class="h4 index-header">调整jupyter notebook的默认路径</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">调整 jupyter notebook 的默认路径
-找到用户目录下的 .jupyter 及其配置环境，找到文件中的 c.NotebookApp.notebook_dir = u’’
-
-取消其注释，修改引号内为你需要的目录值
-
-在快捷方式处打开使用将目标后面的 %USERPROFILE%删除，这是快捷方式打开他时会自动输入的内容
-
-
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/jupyter%20python">jupyter python</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/机器学习学习笔记/">
-                <p class="h4 index-header">机器学习学习笔记</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">机器学习学习笔记
-受机器学习一百天（100-Days-Of-ML-Code）项目影响决定开启自己的机器学习之旅，该项目中文版网址
-
-目录
-有监督学习
-数据预处理
-简单线性回归
-逻辑回归
-
-
-
-数据处理工具学习</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
                         
                     
                 </div>
@@ -485,6 +423,48 @@ platform.architecture()
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
                             <a href="/tags/linux">linux</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/机器学习学习笔记/">
+                <p class="h4 index-header">机器学习学习笔记</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">机器学习学习笔记
+受机器学习一百天（100-Days-Of-ML-Code）项目影响决定开启自己的机器学习之旅，该项目中文版网址
+
+目录
+有监督学习
+数据预处理
+简单线性回归
+逻辑回归
+
+
+
+数据处理工具学习</div>
+                    
+                </div>
+            </a>
+
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0">机器学习</a>&nbsp;
                         
                     
                 </div>

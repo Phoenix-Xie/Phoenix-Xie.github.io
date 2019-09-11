@@ -155,27 +155,27 @@ export default class Sprite {
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 （四）(enemy.js， bullet.js, index.js)/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（一）(main.js)微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
+微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
 微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
-微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
 
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-文件目录
-game.js
-首先让我们来看一下作为入口的game.js，可以看到在这里只进行了main类的初始化，因此下一步我们应该查看一下main类中的函数
-
+enemy.js用于实现敌人对象
 代码
-import Player     from &#39;./player/index&#39;
-import Enemy      from &#39;./npc/enemy&#39;
-import BackGround from </div>
+import Animation from &#39;../base/animation&#39;
+import DataBus   from &#39;../databus&#39;
+
+const ENEMY_IMG_SRC = &#39;images/enemy.png&#39;
+const ENEMY_WIDTH   = 60
+const ENEMY</div>
                     
                 </div>
             </a>
@@ -202,27 +202,27 @@ import BackGround from </div>
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 （四）(enemy.js， bullet.js, index.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（一）(main.js)微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
 微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
+微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
 
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-enemy.js用于实现敌人对象
-代码
-import Animation from &#39;../base/animation&#39;
-import DataBus   from &#39;../databus&#39;
+文件目录
+game.js
+首先让我们来看一下作为入口的game.js，可以看到在这里只进行了main类的初始化，因此下一步我们应该查看一下main类中的函数
 
-const ENEMY_IMG_SRC = &#39;images/enemy.png&#39;
-const ENEMY_WIDTH   = 60
-const ENEMY</div>
+代码
+import Player     from &#39;./player/index&#39;
+import Enemy      from &#39;./npc/enemy&#39;
+import BackGround from </div>
                     
                 </div>
             </a>
@@ -303,46 +303,6 @@ export default class DataBus {
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Django 2.1 学习笔记/">
-                <p class="h4 index-header">Django 2.1 学习笔记</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Django 2.1 学习笔记静态Html管理templates
-templates都默认在templates文件夹下
-如果需要新增模块，可以在该文件夹下新增相同名字的文件夹
-
-HTTP 模块HttpResponseRedirect
-设原网址为  127.0.0.1/user/Lab
-如果参数为 ‘/user’, 跳转到   127.0.0.1/user   &lt;绝对路径&gt;
-如果参数为 ‘user’ ** , 跳转到 **127.0.0.1/user/Lab/user  &lt;相对路径&gt;
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/django">django</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
             <a href="/2019/09/05/Docker 入坑教程笔记/">
                 <p class="h4 index-header">Docker 入坑教程笔记</p>
                 <div class="index-excerpt">
@@ -406,19 +366,71 @@ docker kil</div>
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Ubuntu下深度学习环境坑点记录/">
-                <p class="h4 index-header">Ubuntu下深度学习环境坑点记录</p>
+            <a href="/2019/09/05/# 微信小程序js学习心得体会/">
+                <p class="h4 index-header">微信小程序js学习心得体会</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">Ubuntu下深度学习环境坑点记录环境配置参照博客
-出现的错误无法找到CUDA
-error=38 : no CUDA-capable device is detected
+                        <div class="index-text mb-1">微信小程序js学习心得体会页面控制的bindtap和catchtap
+用法，区别
+
+&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;
+tabMessage: function(e){
+    console.log(e.target.id);
+
+    console.log(e.target.dataset);
+
+    console.log(e.target.dataset.userdate);
+  },
+
+可以获取的数据
+id
+设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写
 
 
-若保证你的机器上有CUDA
-那么一定是你选择的GPU错误
-机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行
+bindtap 与 catchtap的是否冒泡的区别
+bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会
+catchtap可以中断冒泡事件
+任何控件都可以添加该事件
+因此通常会在最外层使用一个view作为总控件，添加</div>
+                    
+                </div>
+            </a>
 
+            
+                <div>
+                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
+                    &nbsp;&nbsp;
+                    
+                    
+                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
+                        
+                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
+                        
+                    
+                </div>
+            
+        </div>
+    </div>
+
+    <div class="row mb-4 mx-auto">
+        
+        
+
+        
+        <div class="col-12 col-md-8 m-auto">
+            <a href="/2019/09/05/LeetCode-环形链表II/">
+                <p class="h4 index-header">LeetCode-环形链表II</p>
+                <div class="index-excerpt">
+                    
+                        <div class="index-text mb-1">LeetCode-环形链表II
+为找到入口点可以用以下方法
+
+使用快慢指针法直到两个指针相遇
+头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
+
+设 起点为A ，入口点为B，快慢指针相遇点为C
+AB = n, BC = k，环长为m
+因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
 </div>
                     
                 </div>
@@ -432,7 +444,7 @@ error=38 : no CUDA-capable device is detected
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
+                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
                         
                     
                 </div>
@@ -478,12 +490,20 @@ error=38 : no CUDA-capable device is detected
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/python3 与python2 下virtualenv 的使用/">
-                <p class="h4 index-header">python3 与 python2下virtualenv的使用</p>
+            <a href="/2019/09/05/Ubuntu下深度学习环境坑点记录/">
+                <p class="h4 index-header">Ubuntu下深度学习环境坑点记录</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">python3 与python2 下virtualenv 的使用当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为
-virtualenv -p python3 env</div>
+                        <div class="index-text mb-1">Ubuntu下深度学习环境坑点记录环境配置参照博客
+出现的错误无法找到CUDA
+error=38 : no CUDA-capable device is detected
+
+
+若保证你的机器上有CUDA
+那么一定是你选择的GPU错误
+机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行
+
+</div>
                     
                 </div>
             </a>
@@ -496,7 +516,7 @@ virtualenv -p python3 env</div>
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/python3">python3</a>&nbsp;
+                            <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
                         
                     
                 </div>

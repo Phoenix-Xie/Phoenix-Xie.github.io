@@ -107,12 +107,12 @@
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 3(spirit.js, animation.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
+微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
 微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
@@ -120,15 +120,21 @@
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-spirit.js游戏基础的精灵类
-代码
+databus.js代码：
+import Pool from &#39;./base/pool&#39;
+
+let instance
+
 /**
- * 游戏基础的精灵类
+ * 全局状态管理器
  */
-export default class Sprite {
-  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {
-    this.img     = new Image()
-    this.img.src = imgS</div>
+export default class DataBus {
+  constructor() {
+    if ( instance )
+      return instance
+
+    instance = this
+</div>
                     
                 </div>
             </a>
@@ -249,12 +255,12 @@ import BackGround from </div>
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</p>
+            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 3(spirit.js, animation.js)/">
+                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
+                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
+微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
 微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
 
 本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
@@ -262,21 +268,15 @@ import BackGround from </div>
 
 本文的代码均由微信小游戏自动生成的demo飞机大战中获取
 
-databus.js代码：
-import Pool from &#39;./base/pool&#39;
-
-let instance
-
+spirit.js游戏基础的精灵类
+代码
 /**
- * 全局状态管理器
+ * 游戏基础的精灵类
  */
-export default class DataBus {
-  constructor() {
-    if ( instance )
-      return instance
-
-    instance = this
-</div>
+export default class Sprite {
+  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {
+    this.img     = new Image()
+    this.img.src = imgS</div>
                     
                 </div>
             </a>
@@ -366,32 +366,31 @@ docker kil</div>
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/# 微信小程序js学习心得体会/">
-                <p class="h4 index-header">微信小程序js学习心得体会</p>
+            <a href="/2019/09/05/# 网络流学习笔记/">
+                <p class="h4 index-header">网络流学习笔记</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">微信小程序js学习心得体会页面控制的bindtap和catchtap
-用法，区别
+                        <div class="index-text mb-1">网络流学习笔记第一天： 实现最基础网络流算法基本思路代码实现#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
+#include &lt;memory.h&gt; 
+using namespace std;
+const int MAXN = 100;
+const int MAXM = MAXN*MAXN;
+const int INF = 0x3f3f3f3f;
+int head[MAXN], Next[MAXM], ver[MAXM], edge[MAXM], flow[MAXM];
+int tot;
 
-&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;
-tabMessage: function(e){
-    console.log(e.target.id);
-
-    console.log(e.target.dataset);
-
-    console.log(e.target.dataset.userdate);
-  },
-
-可以获取的数据
-id
-设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写
-
-
-bindtap 与 catchtap的是否冒泡的区别
-bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会
-catchtap可以中断冒泡事件
-任何控件都可以添加该事件
-因此通常会在最外层使用一个view作为总控件，添加</div>
+void init(){
+    tot = 0;
+    memset(head, 0, sizeof(head));
+}
+void add(int x, int y, int z, int f){
+    Next[++tot] = head[x];
+    head[x] = tot;
+    ver[tot] = y;
+    edge[tot] = z;
+    flow[to</div>
                     
                 </div>
             </a>
@@ -404,7 +403,7 @@ catchtap可以中断冒泡事件
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
+                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
                         
                     
                 </div>
@@ -530,21 +529,12 @@ error=38 : no CUDA-capable device is detected
 
         
         <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/centos下nginx的部署配置/">
-                <p class="h4 index-header">centos下nginx的部署配置</p>
+            <a href="/2019/09/05/python3 与python2 下virtualenv 的使用/">
+                <p class="h4 index-header">python3 与 python2下virtualenv的使用</p>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">centos下nginx的部署配置服务设置
-service nginx restart
-git 账户密码如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。
-解决办法：
-git bash进入你的项目目录，输入：
-git config –global credential.helper store
-然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。
-然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。
-linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
-2 &gt; &amp; 1指将错误输出输入到标准输出中
-</div>
+                        <div class="index-text mb-1">python3 与python2 下virtualenv 的使用当python3与python2共存时，创建虚拟环境需要指明虚拟环境的python版本，命令为
+virtualenv -p python3 env</div>
                     
                 </div>
             </a>
@@ -557,7 +547,7 @@ linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
                     
                         |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
                         
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%20centos">服务器 centos</a>&nbsp;
+                            <a href="/tags/python3">python3</a>&nbsp;
                         
                     
                 </div>

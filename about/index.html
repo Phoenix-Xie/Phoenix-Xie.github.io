@@ -203,6 +203,19 @@
                 </ul>
             </div>
             
+            <div class="col-12 col-md-12 m-auto">
+                <div class="index-excerpt">
+                
+                    <div id="xiaoxue_describe" class="index-text mb-1">美好的小学时光</div>
+                
+                    <div id="zhongxue_describe" class="index-text mb-1">美好的中学时代</div>
+                
+                    <div id="gaozhong_describe" class="index-text mb-1">拼搏的高中时光</div>
+                
+                    <div id="daxue_describe" class="index-text mb-1">现在</div>
+                
+                </div>
+            </div>
         </div>
         <div id="container">
         <div id="progress" class="progress" >
@@ -210,28 +223,47 @@
             </div>
         </div>
         
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                    $("[id$='describe']").hide();
+            })
+        </script>
+        
             <script>
-                $("#xiaoxue").mouseenter(function(){
-                    $("#progress-bar").width(25%);
-                })
+                $("#xiaoxue").mouseover(function(){
+                    $("#progress-bar").width("25%");
+                    $("[id$='describe']").hide();
+                    $("#xiaoxue_describe").show();
+                });
+                
             </script>
         
             <script>
-                $("#zhongxue").mouseenter(function(){
-                    $("#progress-bar").width(50%);
-                })
+                $("#zhongxue").mouseover(function(){
+                    $("#progress-bar").width("50%");
+                    $("[id$='describe']").hide();
+                    $("#zhongxue_describe").show();
+                });
+                
             </script>
         
             <script>
-                $("#gaozhong").mouseenter(function(){
-                    $("#progress-bar").width(75%);
-                })
+                $("#gaozhong").mouseover(function(){
+                    $("#progress-bar").width("75%");
+                    $("[id$='describe']").hide();
+                    $("#gaozhong_describe").show();
+                });
+                
             </script>
         
             <script>
-                $("#daxue").mouseenter(function(){
-                    $("#progress-bar").width(100%);
-                })
+                $("#daxue").mouseover(function(){
+                    $("#progress-bar").width("100%");
+                    $("[id$='describe']").hide();
+                    $("#daxue_describe").show();
+                });
+                
             </script>
         
     </div>
@@ -251,7 +283,7 @@
                 </a>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">暂无介绍</div>
+                        <div class="index-text mb-1">青岛市的一个科技周介绍页面</div>
                     
                 </div>
                 <div>
@@ -280,7 +312,7 @@
                 </a>
                 <div class="index-excerpt">
                     
-                        <div class="index-text mb-1">暂无介绍</div>
+                        <div class="index-text mb-1">一个学校小社团的官网</div>
                     
                 </div>
                 <div>
@@ -397,6 +429,35 @@
               
           </div>
           
+          
+          
+          <div class="row mb-4 mx-auto">
+              
+  
+              <div class="col-12 col-md-12 m-auto">
+                  <a href="">
+                      <p class="h4 index-header">美国大学生数学建模竞赛</p>
+                  </a>
+                  <div class="index-excerpt">
+                      
+                          <div class="index-text mb-1">获得M奖</div>
+                      
+                  </div>
+                  <div>
+                      <i class="iconfont icon-riqi2"></i>&nbsp;2019-12
+                      &nbsp;&nbsp;
+                      
+                  </div>
+              </div>
+  
+              
+              
+  
+            
+                
+              
+          </div>
+          
     
     
     </div>
@@ -404,7 +465,15 @@
 
 
 <div class="mt-5 markdown-body">
-    <p>大家好，这里是小谢，是一个 <del>能文能武</del> 啥也不会的小菜鸡，喜欢python，喜欢编程，喜欢物理，喜欢美术，想要尝试许多新鲜事物。对于各种各样的计算机向都十分感兴趣（都想试试）。对了，还喜欢聊天，欢迎大家与我交流！</p>
+    <h3 id="个人介绍"><a href="#个人介绍" class="headerlink" title="个人介绍"></a>个人介绍</h3><p>大家好，这里是小谢，是一个 <del>能文能武</del> 啥也不会的小菜鸡，喜欢python，喜欢编程，喜欢物理，喜欢美术，想要尝试许多新鲜事物。对于各种各样的计算机向都十分感兴趣（都想试试）。对了，还喜欢聊天，欢迎大家与我交流！</p>
+<h3 id="技能列表"><a href="#技能列表" class="headerlink" title="技能列表"></a>技能列表</h3><ol>
+<li>熟悉使用python</li>
+<li>还喜欢用numpy matplotlib 等各种强大的库</li>
+<li>熟悉django后端开发</li>
+<li>了解matlab的使用，能够独立写出一定规模的脚本</li>
+<li>了解C#</li>
+<li>比较熟悉图论算法</li>
+</ol>
 
 </div>
 

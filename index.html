@@ -1,667 +1,192 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="Academic Webpage" />
+    <meta name="author" content="yixin0313" />
+    <title id="title"></title>
 
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
 
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="UTF-8">
-    <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-    <link rel="icon" type="image/png" href="/img/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="草在结它的种子，风在摇它的叶子，我们站着，不说话，就十分美好">
-    <meta name="author" content="Phoenix">
-    <meta name="keywords" content>
-    <title>Phoenix&#39;s Blog</title>
-    <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css?v=5.7.2">
-    <link rel="stylesheet" href="/lib/mdbootstrap/css/bootstrap.min.css?v=4.3.1">
-    <link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css?v=4.8.7">
-    <link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css">
-    <link rel="stylesheet" href="/lib/nprogress/nprogress.css?v=0.2.0">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
-    
-        <link rel="stylesheet" href="/lib/prettify/tomorrow-night-eighties.min.css">
-    
-    <link rel="stylesheet" href="/css/main.css">
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
+        rel="stylesheet" />
 
-    
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link type="text/css" href="static/css/styles.css" rel="stylesheet" />
+    <link type="text/css" href="static/css/main.css" rel="stylesheet" />
+
+    <!-- Bootstrap core JS-->
+    <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
+
+    <!-- For Compatability -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Markdown -->
+    <script type="text/javascript" src="static/js/marked.min.js"></script>
+
+    <!-- Mathematics -->
+    <script>
+        // See https://docs.mathjax.org/en/latest/index.html for more details.
+        MathJax = {
+            tex: {
+                packages: {},              // extensions to use
+                inlineMath: [              // start/end delimiter pairs for in-line math
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ],
+                displayMath: [             // start/end delimiter pairs for display math
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ],
+                processEscapes: false,      // use \$ to produce a literal dollar sign
+                processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
+                processRefs: true,         // process \ref{...} outside of math mode
+                digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,    // pattern for recognizing numbers
+                tags: 'all',              // or 'ams' or 'all'
+                tagSide: 'right',          // side for \tag macros
+                tagIndent: '0.8em',        // amount to indent tags
+                useLabelIds: true,         // use label name rather than tag for ids
+                maxMacros: 10000,          // maximum number of macro substitutions per expression
+                maxBuffer: 5 * 1024,       // maximum size for the internal TeX string (5K)
+                // baseURL:                   // URL for use with links to tags (when there is a <base> tag in effect)
+                // (document.getElementsByTagName('base').length === 0) ? '' : String(document.location).replace(/#.*$/, ''),
+                formatError:               // function called when TeX syntax errors occur
+                    (jax, err) => jax.formatError(err)
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Core JS-->
+    <script type="text/javascript" src="static/js/scripts.js"></script>
+    <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
+
 </head>
 
-
-<body>
-<header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-<div class="container">
-    <a class="navbar-brand" href="/">&nbsp;<strong>Phoenix&#39;s Blog</strong>&nbsp;</a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto text-center">
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/archives/">Archives</a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/categories/">Categories</a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/tags/">Tags</a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/about/">About</a>
-            </li>
-            
-            
-                <li class="nav-item" id="search-btn">
-                    <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
-                </li>
-            
-        </ul>
-    </div>
-</div>
-
-
-</nav>
-    <div class="view intro-2"
-         style="background: url('/img/index.jpg')no-repeat center center;background-size: cover;">
-        <div class="full-bg-img">
-            <div class="mask rgba-black-light flex-center">
-                <div class="container text-center white-text wow fadeInUp">
-                    <span class="h2" id="subtitle">
-                        
-                    </span>
-                    
-                </div>
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="header navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+        <div class="container px-5">
+            <a id="page-top-title" class="navbar-brand fw-bold" href="#page-top"></a>
+            <!-- <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                MENU
+                <i class="bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="#home">HOME</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="#awards">AWARDS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="#experience">EXPERIENCE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link me-lg-3" href="#publications">PUBLICATIONS</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-</header>
-
-<main>
-    
-        <div class="container nopadding-md">
-            <div class="py-5 z-depth-3 board">
-                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-10 m-auto">
-                            
-
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 2(databus.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（二）(databus.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
-微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
-
-本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
-
-
-本文的代码均由微信小游戏自动生成的demo飞机大战中获取
-
-databus.js代码：
-import Pool from &#39;./base/pool&#39;
-
-let instance
-
-/**
- * 全局状态管理器
- */
-export default class DataBus {
-  constructor() {
-    if ( instance )
-      return instance
-
-    instance = this
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 （四）(enemy.js， bullet.js, index.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
-微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
-
-本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
-
-
-本文的代码均由微信小游戏自动生成的demo飞机大战中获取
-
-enemy.js用于实现敌人对象
-代码
-import Animation from &#39;../base/animation&#39;
-import DataBus   from &#39;../databus&#39;
-
-const ENEMY_IMG_SRC = &#39;images/enemy.png&#39;
-const ENEMY_WIDTH   = 60
-const ENEMY</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 1/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（一）(main.js)</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（一）(main.js)微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
-微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)
-微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
-
-本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
-
-
-本文的代码均由微信小游戏自动生成的demo飞机大战中获取
-
-文件目录
-game.js
-首先让我们来看一下作为入口的game.js，可以看到在这里只进行了main类的初始化，因此下一步我们应该查看一下main类中的函数
-
-代码
-import Player     from &#39;./player/index&#39;
-import Enemy      from &#39;./npc/enemy&#39;
-import BackGround from </div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/10/微信小游戏 demo 飞机大战 代码分析 3(spirit.js, animation.js)/">
-                <p class="h4 index-header">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">微信小游戏 demo 飞机大战 代码分析（三）(spirit.js, animation.js)微信小游戏 demo 飞机大战 代码分析（一）(main.js)
-微信小游戏 demo 飞机大战 代码分析（二）(databus.js)
-微信小游戏 demo 飞机大战 代码分析（四）(enemy.js， bullet.js, index.js)
-
-本博客将使用逐行代码分析的方式讲解该demo，本文适用于对其他高级语言熟悉，对js还未深入了解的同学，博主会尽可能将所有遇到的不明白的部分标注清楚，若有不正确或不清楚的地方，欢迎在评论中指正
-
-
-本文的代码均由微信小游戏自动生成的demo飞机大战中获取
-
-spirit.js游戏基础的精灵类
-代码
-/**
- * 游戏基础的精灵类
- */
-export default class Sprite {
-  constructor(imgSrc = &#39;&#39;, width=  0, height = 0, x = 0, y = 0) {
-    this.img     = new Image()
-    this.img.src = imgS</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-10
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/LeetCode-环形链表II/">
-                <p class="h4 index-header">LeetCode-环形链表II</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">LeetCode-环形链表II
-为找到入口点可以用以下方法
-
-使用快慢指针法直到两个指针相遇
-头节点处创建一个新的指针，并且向前移动，两个指针相遇处创建一个新的指针，并且向前移动，直到两个指针相遇为入口点
-
-设 起点为A ，入口点为B，快慢指针相遇点为C
-AB = n, BC = k，环长为m
-因此快慢指针相遇时，快慢指针走过长度$$快： n+am+k \慢： n+bm+k$$因此有等式$$n+am+k = 2(n+bm+k)$$化简后得到$$n+k = (a-2b)m —{1}$$由于从快慢指针处再出发与头指针同时出发，若要满足在入口相遇，则二者再次走的长度为n，因此$$慢指针新长度：n+bm+k$$带入1式子得到$$n+bm+k \= (a-b)*m+n$$显然这是一个环的长度倍数再加上AB长度，因此必定在出口B处
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E7%AE%97%E6%B3%95">算法</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/# 微信小程序js学习心得体会/">
-                <p class="h4 index-header">微信小程序js学习心得体会</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">微信小程序js学习心得体会页面控制的bindtap和catchtap
-用法，区别
-
-&lt;button id=&#39;123&#39; data-userDate=&#39;100&#39; bindtap=&#39;tabMessage&#39;&gt;刷新&lt;/button&gt;
-tabMessage: function(e){
-    console.log(e.target.id);
-
-    console.log(e.target.dataset);
-
-    console.log(e.target.dataset.userdate);
-  },
-
-可以获取的数据
-id
-设置的datauserxxx，在页面上设置为data-userXxxx，在js中获取则为dataset.userxxxx 更换为小写
-
-
-bindtap 与 catchtap的是否冒泡的区别
-bindtap为冒泡事件，bindtap会导致上级控件的所有事件被触发，而catchtap不会
-catchtap可以中断冒泡事件
-任何控件都可以添加该事件
-因此通常会在最外层使用一个view作为总控件，添加</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F">微信小程序</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Linux 命令行学习/">
-                <p class="h4 index-header">Linux 命令行学习</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Linux 命令行学习
-ps -ef
-curl [网址] 显示html内容
-
-环境变量例子， 修改java环境变量vim ~/.bashrc
-在文件末尾加：
-export JAVA_HOME=/home/java/jdk1.8.0_201
-
-export CLASSPATH=${JAVA_HOME}/lib
-
-export PATH=${JAVA_HOME}/bin:$PATH刷新缓存，立即生效：
-source ~/.bashrc
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/linux%20%E5%91%BD%E4%BB%A4%E8%A1%8C">linux 命令行</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Ubuntu下深度学习环境坑点记录/">
-                <p class="h4 index-header">Ubuntu下深度学习环境坑点记录</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Ubuntu下深度学习环境坑点记录环境配置参照博客
-出现的错误无法找到CUDA
-error=38 : no CUDA-capable device is detected
-
-
-若保证你的机器上有CUDA
-那么一定是你选择的GPU错误
-机器上的GPU有编号，从0开始计数，若选择错误GPU则无法正常运行
-
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/ubuntu%20%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%20GPU">ubuntu 深度学习 GPU</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/Mevan 使用体验/">
-                <p class="h4 index-header">Mevan 使用体验</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">Mevan 使用体验install在添加了新的依赖之后，需要使用install命令，mevan才会去相应仓库进行下载，否则会找不到包
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/Mevan">Mevan</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-    <div class="row mb-4 mx-auto">
-        
-        
-
-        
-        <div class="col-12 col-md-8 m-auto">
-            <a href="/2019/09/05/centos下nginx的部署配置/">
-                <p class="h4 index-header">centos下nginx的部署配置</p>
-                <div class="index-excerpt">
-                    
-                        <div class="index-text mb-1">centos下nginx的部署配置服务设置
-service nginx restart
-git 账户密码如果我们git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当我们操作git pull/push到远程的时候，总是提示我们输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。
-解决办法：
-git bash进入你的项目目录，输入：
-git config –global credential.helper store
-然后你会在你本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。
-然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。
-linux 后台运行nohup  command &gt; log.log  2&gt;&amp;1
-2 &gt; &amp; 1指将错误输出输入到标准输出中
-</div>
-                    
-                </div>
-            </a>
-
-            
-                <div>
-                    <i class="iconfont icon-riqi2"></i>&nbsp;2019-09-05
-                    &nbsp;&nbsp;
-                    
-                    
-                        |&nbsp;&nbsp;<i class="iconfont icon-tag"></i>
-                        
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%20centos">服务器 centos</a>&nbsp;
-                        
-                    
-                </div>
-            
-        </div>
-    </div>
-
-
-
-<nav aria-label="index posts navigation">
-<ul class="pagination pg-blue justify-content-center mt-5">
-    
-    
-        <li class="page-item">
-        <a class="page-link" href="/page/2/">下一页</a>
-        </li>
-    
-</ul>
-</nav>
-
-                        </div>
-                    </div>
-                </div>
+    </nav>
+
+    <!-- Top Section -->
+    <section class="top-section" style="background-image: url('static/assets/img/background.jpeg');">
+        <div class="top-section-content">
+            <div class="container px-5">
+                <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
             </div>
         </div>
-    
-</main>
+    </section>
+    <!-- Top Section -->
 
-
-    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+    <!-- Photo -->
+    <div class="container px-5">
+        <div id="avatar">
+            <img class="shadow" src="static/assets/img/photo.png">
         </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
     </div>
-  </div>
-</div>
+    <!-- Photo -->
 
+    <!-- Home -->
+    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+        <div class="container px-5">
+            <header>
+                <h2 id="home-subtitle"> </h2>
+                <!-- <span class="bi bi-list"></span> -->
+            </header>
+            <div class="main-body" id="home-md"></div>
+        </div>
+    </section>
+    <!-- Home -->
 
-<footer class="mt-5">
-    <div class="text-center py-3">
-        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"><b>Pheonix</b></a>
-        <i class="iconfont icon-love"></i>
-        <a href="https://github.com/Phoenix-Xie" target="_blank" rel="nofollow noopener"> <b>小谢</b></a>
-        <br>
-        
-    </div>
-</footer>
+    <!-- Awards -->
+    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="awards">
+        <div class="container px-5">
+            <header>
+                <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>AWARDS </h2>
+            </header>
+            <div class="main-body" id="awards-md"></div>
 
-<!-- SCRIPTS -->
-<script src="/lib/mdbootstrap/js/jquery-3.4.1.min.js"></script>
-<script src="/lib/mdbootstrap/js/popper.min.js"></script>
-<script src="/lib/mdbootstrap/js/bootstrap.min.js?v=4.3.1"></script>
-<script src="/lib/mdbootstrap/js/mdb.min.js?v=4.8.7"></script>
-<script src="/lib/nprogress/nprogress.min.js?v=0.2.0"></script>
-<script src="/js/main.js"></script>
+        </div>
+    </section>
+    <!-- Awards -->
 
+    <!-- Experience -->
+    <section class="bg-gradient-primary-to-secondary-dark mt5 md5" id="experience">
+        <div class="container px-5">
+            <header>
+                <h2 id="experience-subtitle"><i class="bi bi-briefcase-fill"></i> EXPERIENCE </h2>
+            </header>
+            <div class="main-body" id="experience-md"></div>
+        </div>
+    </section>
+    <!-- Experience -->
 
-    <script src="/lib/prettify/prettify.min.js?v=0.1.0"></script>
-    <script>
-        $(document).ready(function () {
-            $('pre').addClass('prettyprint linenums');
-            prettyPrint();
-        })
-    </script>
+    <!-- Publications -->
+    <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="publications">
+        <div class="container px-5">
+            <header>
+                <h2 id="publications-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
+            </header>
+            <div class="main-body" id="publications-md"></div>
 
+        </div>
+    </section>
+    <!-- Publications  -->
 
-    <script src="/lib/typed/typed.min.js?v=2.0.9"></script>
-    <script>
-        var typed = new Typed('#subtitle', {
-            strings: [
-                '  ',
-                "凤凰花下凤凰城&nbsp;",
-            ],
-            cursorChar: "_",
-            typeSpeed: 70,
-            loop: false,
-        });
-        typed.stop();
-        $(document).ready(function () {
-            $(".typed-cursor").addClass("h2");
-            typed.start();
-        });
-    </script>
-
-
-    <script src="/lib/anchor/anchor.min.js?v=4.2.0"></script>
-    <script>
-        anchors.options = {
-            placement: "right",
-            visible: "false",
-            
-        };
-        var el = "h1,h2,h3,h4,h5,h6".split(",")
-        var res = []
-        for (item of el) {
-            res.push(".markdown-body > " + item)
-        }
-        anchors.add(res.join(", "))
-    </script>
-
-
-
-    <script src="/js/local-search.js"></script>
-    <script>
-        var path = "/local-search.xml";
-        var inputArea = document.querySelector("#local-search-input");
-        inputArea.onclick = function () {
-            getSearchFile(path);
-            this.onclick = null
-        }
-    </script>
+    <!-- Footer-->
+    <footer class="bg-bottom text-center py-5">
+        <div class="container px-5">
+            <div class="text-white-50 small">
+                <div id="copyright-text" class="mb-2"></div>
+                <a id="github-link" href="https://github.com/senli1073">Github</a>
+                <span class="mx-1">&middot;</span>
+                <a id="license-link"
+                    href="https://github.com/senli1073/senli1073.github.io/blob/main/LICENSE">License</a>
+            </div>
+        </div>
+    </footer>
 
 </body>
+
 </html>
